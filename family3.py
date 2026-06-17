@@ -423,14 +423,15 @@ class TreeBuilder:
 
         visible = {root}
         for group in [
+            grandparents,
             parents,
             parent_in_laws,
+            aunts_uncles,
             siblings,
             spouses,
             sibling_in_laws,
-            children,
-            aunts_uncles,
             cousins,
+            children,
             nieces_nephews,
             grandchildren,
         ]:
@@ -438,17 +439,27 @@ class TreeBuilder:
 
         # Expand arrow targets in place rather than navigating away from the
         # current root. Pull each opened person's nuclear family into view so
-        # the newly opened branch stays connected.
+        # the newly opened branch stays connected. Expanded people may already
+        # be visible, so track processed nodes separately; otherwise clicking
+        # an arrow on a visible person would not reveal that person's relatives.
         pending = [pid for pid in expanded if self.visible(pid, root=root)]
+        processed = set()
         while pending:
             pid = pending.pop()
-            if pid in visible:
+            if pid in processed:
                 continue
+            processed.add(pid)
             visible.add(pid)
-            relatives = set(self.parents_of(pid, root=root)) | set(self.children_of(pid, root=root)) | set(self.spouses_of(pid, root=root))
+            relatives = (
+                set(self.parents_of(pid, root=root))
+                | set(self.children_of(pid, root=root))
+                | set(self.spouses_of(pid, root=root))
+                | set(self.siblings_of(pid, root=root))
+            )
             for rel in relatives:
                 if rel not in visible and self.visible(rel, root=root):
                     pending.append(rel)
+                    visible.add(rel)
 
         edges = set()
         family_edges = {}
@@ -675,54 +686,86 @@ class FamilyTreeApp:
                 out.append(pid)
             return out
 
-        def place_row(nodes, y, relation=None, center_x=0, gap=ROW_NODE_GAP):
-            nodes = [
-                pid for pid in nodes
-                if pid in self.data["visible"] and (pid not in self.node_layouts or pid == root)
-            ]
-            if not nodes:
-                return
-            widths = [self.measure_box(pid)[0] for pid in nodes]
-            total_w = sum(widths) + gap * max(0, len(nodes) - 1)
-            x = center_x - total_w / 2
-            for pid, w in zip(nodes, widths):
-                h = self.measure_box(pid)[1]
-                rel = relation or self.relation_type(pid)
-                self.node_layouts[pid] = NodeLayout(pid, x + w / 2, y, w, h, rel)
-                x += w + gap
-
         def row_width(nodes, gap=ROW_NODE_GAP):
+            nodes = ordered_unique(nodes)
             if not nodes:
                 return 0
             return sum(self.measure_box(pid)[0] for pid in nodes) + gap * (len(nodes) - 1)
 
-        def place_anchored_row(left_nodes, center_nodes, right_nodes, y):
-            left_nodes = ordered_unique(left_nodes)
+        def place_row(nodes, y, relation=None, center_x=0, gap=ROW_NODE_GAP):
+            nodes = [
+                pid for pid in ordered_unique(nodes)
+                if pid not in self.node_layouts or pid == root
+            ]
+            if not nodes:
+                return
+            total_w = row_width(nodes, gap)
+            x = center_x - total_w / 2
+            for pid in nodes:
+                w, h = self.measure_box(pid)
+                rel = relation or self.relation_type(pid)
+                self.node_layouts[pid] = NodeLayout(pid, x + w / 2, y, w, h, rel)
+                x += w + gap
+
+        def coupled_row(primary_nodes, y, relation=None, center_x=0):
+            """Place a generation row while keeping spouses beside each other.
+
+            The visual style mirrors a conventional family-tree chart: spouses
+            sit shoulder-to-shoulder, children connect to the midpoint between
+            parents, and each generation gets its own horizontal band.
+            """
+            groups = []
+            used = set()
+            for pid in ordered_unique(primary_nodes):
+                if pid in used:
+                    continue
+                group = [pid]
+                used.add(pid)
+                for spouse in self.builder.ordered(self.builder.spouses_of(pid, root=self.root_pid)):
+                    if spouse in self.data["visible"] and spouse not in used:
+                        group.append(spouse)
+                        used.add(spouse)
+                groups.append(group)
+
+            if not groups:
+                return
+
+            group_gap = ROW_NODE_GAP * 1.45
+            spouse_gap = max(26, SIBLING_GAP // 2)
+            widths = []
+            for group in groups:
+                widths.append(sum(self.measure_box(pid)[0] for pid in group) + spouse_gap * (len(group) - 1))
+            total_w = sum(widths) + group_gap * max(0, len(groups) - 1)
+            x = center_x - total_w / 2
+            for group, width in zip(groups, widths):
+                gx = x
+                for pid in group:
+                    w, h = self.measure_box(pid)
+                    rel = relation or self.relation_type(pid)
+                    self.node_layouts[pid] = NodeLayout(pid, gx + w / 2, y, w, h, rel)
+                    gx += w + spouse_gap
+                x += width + group_gap
+
+        def side_row(left_nodes, center_nodes, right_nodes, y):
             center_nodes = ordered_unique(center_nodes)
-            right_nodes = ordered_unique(right_nodes)
-
             center_w = row_width(center_nodes)
-            left_w = row_width(left_nodes)
-            right_w = row_width(right_nodes)
-
-            if left_nodes:
-                place_row(left_nodes, y, center_x=-(center_w / 2 + ROW_NODE_GAP + left_w / 2))
+            left_nodes = ordered_unique(left_nodes)
+            right_nodes = ordered_unique(right_nodes)
             if center_nodes:
-                place_row(center_nodes, y, center_x=0)
+                coupled_row(center_nodes, y, center_x=0)
+            if left_nodes:
+                place_row(left_nodes, y, center_x=-(center_w / 2 + ROW_NODE_GAP * 2 + row_width(left_nodes) / 2))
             if right_nodes:
-                place_row(right_nodes, y, center_x=(center_w / 2 + ROW_NODE_GAP + right_w / 2))
+                place_row(right_nodes, y, center_x=(center_w / 2 + ROW_NODE_GAP * 2 + row_width(right_nodes) / 2))
 
-        row_5 = ordered_unique(self.data["grandchildren"])
-
-        place_anchored_row(self.data["aunts_uncles"], self.data["parents"], self.data["parent_in_laws"], -GEN_GAP)
-        place_anchored_row(
-            self.data["siblings"],
-            [root] + self.data["spouses"] + self.data["sibling_in_laws"],
-            self.data["cousins"],
-            0,
-        )
-        place_anchored_row(self.data["nieces_nephews"], self.data["children"], [], GEN_GAP)
-        place_row(row_5, 2 * GEN_GAP, "descendant")
+        # A clear, heavily connected family-tree layout: one horizontal band per
+        # generation, with collateral relatives kept at the sides instead of
+        # mixed into the direct ancestor/descendant spine.
+        place_row(self.data["grandparents"], -2 * GEN_GAP, "ancestor", gap=ROW_NODE_GAP * 1.2)
+        side_row(self.data["aunts_uncles"], self.data["parents"], self.data["parent_in_laws"], -GEN_GAP)
+        side_row(self.data["siblings"], [root] + self.data["spouses"] + self.data["sibling_in_laws"], self.data["cousins"], 0)
+        side_row(self.data["nieces_nephews"], self.data["children"], [], GEN_GAP)
+        coupled_row(self.data["grandchildren"], 2 * GEN_GAP, "descendant")
 
         remaining = ordered_unique(pid for pid in self.data["visible"] if pid not in self.node_layouts)
         if remaining:
@@ -1115,6 +1158,7 @@ class FamilyTreeApp:
         # draw boxes on top
         # explicit order: ancestors, sides, root, spouses, descendants
         ordered_ids = []
+        ordered_ids.extend(self.data["grandparents"])
         ordered_ids.extend(self.data["aunts_uncles"])
         ordered_ids.extend(self.data["parents"])
         ordered_ids.extend(self.data["parent_in_laws"])

@@ -57,11 +57,11 @@ MIN_WIN_H = 780
 PANEL_W = 320
 MARGIN = 60
 
-GEN_GAP = 178
-ROW_GAP = 108
-SIBLING_GAP = 32
-COLLATERAL_GAP = 48
-ROW_NODE_GAP = 64
+GEN_GAP = 210
+ROW_GAP = 132
+SIBLING_GAP = 56
+COLLATERAL_GAP = 92
+ROW_NODE_GAP = 96
 EXT_BUTTON_R = 15
 
 BOX_PAD_X = 18
@@ -255,7 +255,7 @@ class TreeBuilder:
     def __init__(self, people: dict[str, Person], families: dict[str, Family]):
         self.people = people
         self.families = families
-        self._cache: dict[str, dict] = {}
+        self._cache: dict[tuple, dict] = {}
         self.include_adopted = False
 
     def name_of(self, pid: str) -> str:
@@ -401,8 +401,9 @@ class TreeBuilder:
             out |= self.children_of(sibling, root=root)
         return out
 
-    def build_visible_graph(self, root: str):
-        cache_key = (root, self.include_adopted)
+    def build_visible_graph(self, root: str, expanded: set[str] | None = None):
+        expanded = expanded or set()
+        cache_key = (root, self.include_adopted, tuple(sorted(expanded)))
         if cache_key in self._cache:
             return self._cache[cache_key]
 
@@ -435,7 +436,22 @@ class TreeBuilder:
         ]:
             visible.update(group)
 
+        # Expand arrow targets in place rather than navigating away from the
+        # current root. Pull each opened person's nuclear family into view so
+        # the newly opened branch stays connected.
+        pending = [pid for pid in expanded if self.visible(pid, root=root)]
+        while pending:
+            pid = pending.pop()
+            if pid in visible:
+                continue
+            visible.add(pid)
+            relatives = set(self.parents_of(pid, root=root)) | set(self.children_of(pid, root=root)) | set(self.spouses_of(pid, root=root))
+            for rel in relatives:
+                if rel not in visible and self.visible(rel, root=root):
+                    pending.append(rel)
+
         edges = set()
+        family_edges = {}
         marriage_edges = set()
 
         # biological parent-child edges only, excluding adopted children
@@ -454,6 +470,11 @@ class TreeBuilder:
                         continue
                     if pid in (fam.husband, fam.wife):
                         edges.add((pid, child))
+                        family_edges.setdefault(fid, {"parents": [], "children": []})
+                        if pid not in family_edges[fid]["parents"]:
+                            family_edges[fid]["parents"].append(pid)
+                        if child not in family_edges[fid]["children"]:
+                            family_edges[fid]["children"].append(child)
 
         # marriage edges
         for pid in visible:
@@ -477,6 +498,7 @@ class TreeBuilder:
             "grandchildren": grandchildren,
             "visible": visible,
             "edges": edges,
+            "family_edges": family_edges,
             "marriages": marriage_edges,
         }
         self._cache[cache_key] = data
@@ -531,7 +553,8 @@ class FamilyTreeApp:
         self.people = people
         self.families = families
         self.builder = TreeBuilder(people, families)
-        self.data = self.builder.build_visible_graph(root_pid)
+        self.expanded_people: set[str] = set()
+        self.data = self.builder.build_visible_graph(root_pid, self.expanded_people)
 
         self.root_pid = root_pid
         self.selected_pid = root_pid
@@ -548,6 +571,7 @@ class FamilyTreeApp:
         self.user_zoom = 1.0
         self.auto_zoom = 1.0
         self.manual_positions: dict[str, tuple[float, float]] = {}
+        self.toggle_adopted_rect = pygame.Rect(0, 0, 0, 0)
         self.last_click_time = 0
         self.last_click_pid: str | None = None
         self.extension_buttons: list[ExtensionButton] = []
@@ -700,6 +724,13 @@ class FamilyTreeApp:
         place_anchored_row(self.data["nieces_nephews"], self.data["children"], [], GEN_GAP)
         place_row(row_5, 2 * GEN_GAP, "descendant")
 
+        remaining = ordered_unique(pid for pid in self.data["visible"] if pid not in self.node_layouts)
+        if remaining:
+            place_row(remaining, 3 * GEN_GAP, "side", gap=ROW_NODE_GAP + COLLATERAL_GAP)
+
+        # Keep manually moved spouses at their own positions. The marriage line
+        # is drawn with elbows, so dragging one spouse bends the connector while
+        # preserving the relationship.
         for pid, (x, y) in self.manual_positions.items():
             node = self.node_layouts.get(pid)
             if node:
@@ -780,21 +811,49 @@ class FamilyTreeApp:
         pygame.draw.line(surface, color, (x1, mid_y), (x2, mid_y), width)
         pygame.draw.line(surface, color, (x2, mid_y), (x2, y2), width)
 
+    def marriage_connector(self, a: NodeLayout, b: NodeLayout) -> tuple[float, float]:
+        ax, ay = self.world_to_screen(a.x, a.y)
+        bx, by = self.world_to_screen(b.x, b.y)
+        return ((ax + bx) / 2, (ay + by) / 2)
+
     def draw_marriage(self, surface, a: NodeLayout, b: NodeLayout):
         ax, ay = self.world_to_screen(a.x, a.y)
         bx, by = self.world_to_screen(b.x, b.y)
-
         zoom = self.auto_zoom * self.user_zoom
-        y = (ay + by) / 2
         if ax <= bx:
-            start = (ax + a.w / 2 * zoom, y)
-            end = (bx - b.w / 2 * zoom, y)
+            start = (ax + a.w / 2 * zoom, ay)
+            end = (bx - b.w / 2 * zoom, by)
         else:
-            start = (bx + b.w / 2 * zoom, y)
-            end = (ax - a.w / 2 * zoom, y)
+            start = (bx + b.w / 2 * zoom, by)
+            end = (ax - a.w / 2 * zoom, ay)
+        mid_x = (start[0] + end[0]) / 2
+        pygame.draw.line(surface, LINK, start, (mid_x, start[1]), 3)
+        pygame.draw.line(surface, LINK, (mid_x, start[1]), (mid_x, end[1]), 3)
+        pygame.draw.line(surface, LINK, (mid_x, end[1]), end, 3)
+        pygame.draw.circle(surface, LINK, (int(mid_x), int((start[1] + end[1]) / 2)), 5)
 
-        pygame.draw.line(surface, LINK, (start[0], y), (end[0], y), 3)
-        pygame.draw.circle(surface, LINK, (int((start[0] + end[0]) / 2), int(y)), 5)
+    def draw_family_children(self, surface, fid: str, family):
+        children = [self.node_layouts[c] for c in family["children"] if c in self.node_layouts]
+        parents = [self.node_layouts[p] for p in family["parents"] if p in self.node_layouts]
+        if not children or not parents:
+            return
+        zoom = self.auto_zoom * self.user_zoom
+        if len(parents) >= 2:
+            start = self.marriage_connector(parents[0], parents[1])
+        else:
+            px, py = self.world_to_screen(parents[0].x, parents[0].y)
+            start = (px, py + parents[0].h / 2 * zoom)
+        child_tops = []
+        for child in children:
+            cx, cy = self.world_to_screen(child.x, child.y)
+            child_tops.append((cx, cy - child.h / 2 * zoom))
+        trunk_y = min(y for _, y in child_tops) - max(22, int(36 * zoom))
+        pygame.draw.line(surface, LINK, start, (start[0], trunk_y), max(2, int(3 * zoom)))
+        if len(child_tops) > 1:
+            pygame.draw.line(surface, LINK, (min(x for x, _ in child_tops), trunk_y), (max(x for x, _ in child_tops), trunk_y), max(2, int(3 * zoom)))
+        for end in child_tops:
+            pygame.draw.line(surface, LINK, (end[0], trunk_y), end, max(2, int(3 * zoom)))
+            self.draw_arrowhead(surface, (end[0], trunk_y), end, LINK, max(8, int(11 * zoom)))
 
     def draw_parent_child(self, surface, parent: NodeLayout, child: NodeLayout):
         px, py = self.world_to_screen(parent.x, parent.y)
@@ -993,8 +1052,8 @@ class FamilyTreeApp:
             "Drag box: reposition",
             "Wheel: cursor zoom",
             "Double-click: new root",
-            "Arrow buttons: expand",
-            "R: refit",
+            "Arrow buttons: expand branch",
+            "A: adopted relatives on/off",
             "S: save PNG",
             "Click a box: select",
             "ESC / Q: quit",
@@ -1008,6 +1067,14 @@ class FamilyTreeApp:
         counts_title = self.font_ui.render("Visible counts", True, TEXT)
         surface.blit(counts_title, (panel.left + 20, y))
         y += 34
+
+        toggle_text = f"Adopted relatives: {'ON' if self.builder.include_adopted else 'OFF'}"
+        toggle = self.font_small.render(toggle_text, True, TEXT)
+        self.toggle_adopted_rect = pygame.Rect(panel.left + 20, y, 230, 28)
+        pygame.draw.rect(surface, (218, 228, 225), self.toggle_adopted_rect, border_radius=8)
+        pygame.draw.rect(surface, LINK, self.toggle_adopted_rect, width=2, border_radius=8)
+        surface.blit(toggle, (self.toggle_adopted_rect.left + 10, self.toggle_adopted_rect.top + 6))
+        y += 46
 
         counts = [
             ("Parents", len(self.data["parents"])),
@@ -1039,10 +1106,9 @@ class FamilyTreeApp:
             if a_id in self.node_layouts and b_id in self.node_layouts:
                 self.draw_marriage(self.screen, self.node_layouts[a_id], self.node_layouts[b_id])
 
-        # draw parent-child links next
-        for parent_id, child_id in sorted(self.data["edges"]):
-            if parent_id in self.node_layouts and child_id in self.node_layouts:
-                self.draw_parent_child(self.screen, self.node_layouts[parent_id], self.node_layouts[child_id])
+        # draw parent-child trunks from each parents' marriage connector.
+        for fid, family in sorted(self.data["family_edges"].items()):
+            self.draw_family_children(self.screen, fid, family)
 
         self.draw_extension_arrows(self.screen)
 
@@ -1114,19 +1180,37 @@ class FamilyTreeApp:
             self.selected_pid = pid
         return pid
 
+    def refresh_graph(self, reset_positions=False):
+        self.data = self.builder.build_visible_graph(self.root_pid, self.expanded_people)
+        if reset_positions:
+            self.manual_positions.clear()
+        else:
+            self.manual_positions = {key: value for key, value in self.manual_positions.items() if key in self.data["visible"]}
+        self.compute_layout()
+        self.fit_tree(initial=reset_positions)
+        pygame.display.set_caption(f"Ancestry Graph Explorer - {self.person(self.root_pid).name}")
+
     def set_root(self, pid: str):
         if pid not in self.people:
             return
         self.root_pid = pid
         self.selected_pid = pid
-        self.data = self.builder.build_visible_graph(pid)
-        self.manual_positions = {
-            key: value for key, value in self.manual_positions.items()
-            if key in self.data["visible"]
-        }
-        self.compute_layout()
-        self.fit_tree(initial=False)
-        pygame.display.set_caption(f"Ancestry Graph Explorer - {self.person(self.root_pid).name}")
+        self.expanded_people.clear()
+        # A new root is a fresh screen: clear all dragged positions and reset zoom/pan.
+        self.refresh_graph(reset_positions=True)
+
+    def expand_branch(self, pid: str):
+        if pid not in self.people:
+            return
+        self.expanded_people.add(pid)
+        self.selected_pid = pid
+        self.refresh_graph(reset_positions=False)
+
+    def toggle_adopted(self):
+        self.builder.include_adopted = not self.builder.include_adopted
+        self.builder._cache.clear()
+        self.expanded_people.clear()
+        self.refresh_graph(reset_positions=True)
 
     def zoom_at(self, pos, factor):
         before = self.screen_to_world(*pos)
@@ -1149,8 +1233,8 @@ class FamilyTreeApp:
                 elif event.type == pygame.KEYDOWN:
                     if event.key in (pygame.K_ESCAPE, pygame.K_q):
                         self.running = False
-                    elif event.key == pygame.K_r:
-                        self.fit_tree(initial=False)
+                    elif event.key == pygame.K_a:
+                        self.toggle_adopted()
                     elif event.key == pygame.K_s:
                         saved = self.save_screenshot()
                         print(f"Saved screenshot to {saved}")
@@ -1168,6 +1252,9 @@ class FamilyTreeApp:
                             self.pressed_extension = extension
                             self.dragging_node = None
                             self.dragging_pan = False
+                            continue
+                        if event.pos[0] >= self.viewport_w - PANEL_W and self.toggle_adopted_rect.collidepoint(event.pos):
+                            self.toggle_adopted()
                             continue
                         pid = self.select_at_point(event.pos)
                         now = pygame.time.get_ticks()
@@ -1202,7 +1289,7 @@ class FamilyTreeApp:
                                 and released.target == self.pressed_extension.target
                                 and released.direction == self.pressed_extension.direction
                             ):
-                                self.set_root(released.target)
+                                self.expand_branch(released.target)
                             self.pressed_extension = None
                         self.dragging_pan = False
                         self.dragging_node = None

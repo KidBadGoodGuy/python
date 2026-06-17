@@ -256,7 +256,7 @@ class TreeBuilder:
         self.people = people
         self.families = families
         self._cache: dict[tuple, dict] = {}
-        self.include_adopted = False
+        self.include_adopted = True
 
     def name_of(self, pid: str) -> str:
         return self.people.get(pid, Person(pid)).name
@@ -278,24 +278,14 @@ class TreeBuilder:
         return sorted(set(ids), key=self.sort_key)
 
     def visible(self, pid: str, root: str) -> bool:
-        if pid == root:
-            return True
-        p = self.people.get(pid)
-        if not p:
-            return False
-        if self.include_adopted:
-            return True
-        return not (p.adopted or p.adopted_in)
+        # Every individual connected to the chosen root is visible, including
+        # adopted relatives.  The flag is kept only for old cache keys.
+        return pid in self.people
 
     def is_adopted_child_in_family(self, pid: str, fid: str) -> bool:
-        p = self.people.get(pid)
-        if not p:
-            return True
-        if self.include_adopted:
-            return False
-        if p.adopted:
-            return True
-        return fid in p.adopted_in
+        # Adoption is a display attribute, not a filter. Adopted children keep
+        # their parent-child edges so their family lines stay connected.
+        return False
 
     def spouses_of(self, pid: str, root: str | None = None) -> set[str]:
         out = set()
@@ -453,7 +443,7 @@ class TreeBuilder:
         family_edges = {}
         marriage_edges = set()
 
-        # biological parent-child edges only, excluding adopted children
+        # parent-child edges, including adopted children
         for pid in visible:
             if pid not in self.people:
                 continue
@@ -752,9 +742,9 @@ class FamilyTreeApp:
             relation = "ancestor" if level < 0 else "descendant" if level > 0 else None
             coupled_row(row, y, relation=relation)
 
-        # Keep manually moved spouses at their own positions. The marriage line
-        # is drawn with elbows, so dragging one spouse bends the connector while
-        # preserving the relationship.
+        # Keep manually moved people at their own positions. Marriage lines are
+        # drawn with elbows, so dragging one selected spouse bends the connector
+        # while preserving the relationship.
         for pid, (x, y) in self.manual_positions.items():
             node = self.node_layouts.get(pid)
             if node:
@@ -1077,9 +1067,9 @@ class FamilyTreeApp:
             "Wheel: cursor zoom",
             "Double-click: new root",
             "Arrow buttons: expand branch",
-            "A: adopted relatives on/off",
-            "S: save PNG",
+            "S: save unique PNG",
             "Click a box: select",
+            "Drag selected box: move it",
             "ESC / Q: quit",
         ]
         for line in controls:
@@ -1092,13 +1082,12 @@ class FamilyTreeApp:
         surface.blit(counts_title, (panel.left + 20, y))
         y += 34
 
-        toggle_text = f"Adopted relatives: {'ON' if self.builder.include_adopted else 'OFF'}"
-        toggle = self.font_small.render(toggle_text, True, TEXT)
-        self.toggle_adopted_rect = pygame.Rect(panel.left + 20, y, 230, 28)
-        pygame.draw.rect(surface, (218, 228, 225), self.toggle_adopted_rect, border_radius=8)
-        pygame.draw.rect(surface, LINK, self.toggle_adopted_rect, width=2, border_radius=8)
-        surface.blit(toggle, (self.toggle_adopted_rect.left + 10, self.toggle_adopted_rect.top + 6))
-        y += 46
+        all_count = self.font_small.render(f"All individuals in file: {len(self.people)}", True, TEXT)
+        surface.blit(all_count, (panel.left + 20, y))
+        y += 28
+        visible_count = self.font_small.render(f"Individuals in this tree: {len(self.data['visible'])}", True, TEXT)
+        surface.blit(visible_count, (panel.left + 20, y))
+        y += 34
 
         counts = [
             ("Parents", len(self.data["parents"])),
@@ -1171,7 +1160,13 @@ class FamilyTreeApp:
         pygame.display.flip()
 
     def save_screenshot(self):
-        path = os.path.join(os.path.dirname(__file__), "ancestry_tree_screenshot.png")
+        folder = os.path.dirname(__file__)
+        stem = "ancestry_tree_screenshot"
+        path = os.path.join(folder, f"{stem}.png")
+        index = 1
+        while os.path.exists(path):
+            path = os.path.join(folder, f"{stem}_{index:03d}.png")
+            index += 1
         pygame.image.save(self.screen, path)
         return path
 
@@ -1239,10 +1234,11 @@ class FamilyTreeApp:
         self.refresh_graph(reset_positions=False)
 
     def toggle_adopted(self):
-        self.builder.include_adopted = not self.builder.include_adopted
+        # Adopted relatives are always shown; keep this no-op so older key
+        # bindings do not accidentally hide part of the family.
+        self.builder.include_adopted = True
         self.builder._cache.clear()
-        self.expanded_people.clear()
-        self.refresh_graph(reset_positions=True)
+        self.refresh_graph(reset_positions=False)
 
     def zoom_at(self, pos, factor):
         before = self.screen_to_world(*pos)
@@ -1265,8 +1261,6 @@ class FamilyTreeApp:
                 elif event.type == pygame.KEYDOWN:
                     if event.key in (pygame.K_ESCAPE, pygame.K_q):
                         self.running = False
-                    elif event.key == pygame.K_a:
-                        self.toggle_adopted()
                     elif event.key == pygame.K_s:
                         saved = self.save_screenshot()
                         print(f"Saved screenshot to {saved}")
@@ -1285,10 +1279,7 @@ class FamilyTreeApp:
                             self.dragging_node = None
                             self.dragging_pan = False
                             continue
-                        if event.pos[0] >= self.viewport_w - PANEL_W and self.toggle_adopted_rect.collidepoint(event.pos):
-                            self.toggle_adopted()
-                            continue
-                        pid = self.select_at_point(event.pos)
+                        pid = self.node_at_point(event.pos)
                         now = pygame.time.get_ticks()
                         double_click = (
                             pid is not None
@@ -1303,7 +1294,11 @@ class FamilyTreeApp:
                             self.dragging_pan = False
                             continue
                         if pid:
-                            self.dragging_node = pid
+                            if pid == self.selected_pid:
+                                self.dragging_node = pid
+                            else:
+                                self.selected_pid = pid
+                                self.dragging_node = None
                         else:
                             self.dragging_pan = True
                     elif event.button == 4:

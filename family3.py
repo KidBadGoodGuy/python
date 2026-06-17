@@ -421,34 +421,16 @@ class TreeBuilder:
         cousins = self.ordered(self.cousins_of(root, root=root) - set(nieces_nephews))
         grandchildren = self.ordered(self.grandchildren_of(root, root=root))
 
-        visible = {root}
-        for group in [
-            grandparents,
-            parents,
-            parent_in_laws,
-            aunts_uncles,
-            siblings,
-            spouses,
-            sibling_in_laws,
-            cousins,
-            children,
-            nieces_nephews,
-            grandchildren,
-        ]:
-            visible.update(group)
-
-        # Expand arrow targets in place rather than navigating away from the
-        # current root. Pull each opened person's nuclear family into view so
-        # the newly opened branch stays connected. Expanded people may already
-        # be visible, so track processed nodes separately; otherwise clicking
-        # an arrow on a visible person would not reveal that person's relatives.
-        pending = [pid for pid in expanded if self.visible(pid, root=root)]
-        processed = set()
+        # Show the whole connected biological/spousal component around the
+        # selected root, not just the immediate ego network. This mirrors the
+        # Ancestry-style tree screenshots: users can pan/zoom across a broad,
+        # heavily connected chart while each person still appears only once.
+        visible = set()
+        pending = [root]
         while pending:
             pid = pending.pop()
-            if pid in processed:
+            if pid in visible or not self.visible(pid, root=root):
                 continue
-            processed.add(pid)
             visible.add(pid)
             relatives = (
                 set(self.parents_of(pid, root=root))
@@ -459,7 +441,13 @@ class TreeBuilder:
             for rel in relatives:
                 if rel not in visible and self.visible(rel, root=root):
                     pending.append(rel)
-                    visible.add(rel)
+
+        # Explicit expansions are still honored for files with disconnected
+        # data or when future filters make some relatives reachable only after
+        # opening a branch.
+        for pid in expanded:
+            if self.visible(pid, root=root):
+                visible.add(pid)
 
         edges = set()
         family_edges = {}
@@ -686,27 +674,6 @@ class FamilyTreeApp:
                 out.append(pid)
             return out
 
-        def row_width(nodes, gap=ROW_NODE_GAP):
-            nodes = ordered_unique(nodes)
-            if not nodes:
-                return 0
-            return sum(self.measure_box(pid)[0] for pid in nodes) + gap * (len(nodes) - 1)
-
-        def place_row(nodes, y, relation=None, center_x=0, gap=ROW_NODE_GAP):
-            nodes = [
-                pid for pid in ordered_unique(nodes)
-                if pid not in self.node_layouts or pid == root
-            ]
-            if not nodes:
-                return
-            total_w = row_width(nodes, gap)
-            x = center_x - total_w / 2
-            for pid in nodes:
-                w, h = self.measure_box(pid)
-                rel = relation or self.relation_type(pid)
-                self.node_layouts[pid] = NodeLayout(pid, x + w / 2, y, w, h, rel)
-                x += w + gap
-
         def coupled_row(primary_nodes, y, relation=None, center_x=0):
             """Place a generation row while keeping spouses beside each other.
 
@@ -746,30 +713,44 @@ class FamilyTreeApp:
                     gx += w + spouse_gap
                 x += width + group_gap
 
-        def side_row(left_nodes, center_nodes, right_nodes, y):
-            center_nodes = ordered_unique(center_nodes)
-            center_w = row_width(center_nodes)
-            left_nodes = ordered_unique(left_nodes)
-            right_nodes = ordered_unique(right_nodes)
-            if center_nodes:
-                coupled_row(center_nodes, y, center_x=0)
-            if left_nodes:
-                place_row(left_nodes, y, center_x=-(center_w / 2 + ROW_NODE_GAP * 2 + row_width(left_nodes) / 2))
-            if right_nodes:
-                place_row(right_nodes, y, center_x=(center_w / 2 + ROW_NODE_GAP * 2 + row_width(right_nodes) / 2))
+        def assign_generations():
+            levels = {root: 0}
+            queue = [root]
+            while queue:
+                pid = queue.pop(0)
+                level = levels[pid]
+                neighbors = []
+                neighbors.extend((parent, level - 1) for parent in self.builder.parents_of(pid, root=self.root_pid))
+                neighbors.extend((child, level + 1) for child in self.builder.children_of(pid, root=self.root_pid))
+                neighbors.extend((spouse, level) for spouse in self.builder.spouses_of(pid, root=self.root_pid))
+                for other, other_level in neighbors:
+                    if other not in self.data["visible"]:
+                        continue
+                    if other not in levels:
+                        levels[other] = other_level
+                        queue.append(other)
 
-        # A clear, heavily connected family-tree layout: one horizontal band per
-        # generation, with collateral relatives kept at the sides instead of
-        # mixed into the direct ancestor/descendant spine.
-        place_row(self.data["grandparents"], -2 * GEN_GAP, "ancestor", gap=ROW_NODE_GAP * 1.2)
-        side_row(self.data["aunts_uncles"], self.data["parents"], self.data["parent_in_laws"], -GEN_GAP)
-        side_row(self.data["siblings"], [root] + self.data["spouses"] + self.data["sibling_in_laws"], self.data["cousins"], 0)
-        side_row(self.data["nieces_nephews"], self.data["children"], [], GEN_GAP)
-        coupled_row(self.data["grandchildren"], 2 * GEN_GAP, "descendant")
+            # Any unusual connected leftovers stay near the root instead of
+            # disappearing, which keeps the tree robust for imperfect GEDCOMs.
+            for pid in self.data["visible"]:
+                levels.setdefault(pid, 0)
+            return levels
 
-        remaining = ordered_unique(pid for pid in self.data["visible"] if pid not in self.node_layouts)
-        if remaining:
-            place_row(remaining, 3 * GEN_GAP, "side", gap=ROW_NODE_GAP + COLLATERAL_GAP)
+        # A clear, heavily connected family-tree layout: every visible person is
+        # placed in a generation row. Couples stay adjacent, rows run from oldest
+        # ancestors down to youngest descendants, and the whole chart remains
+        # connected by the family-edge drawing pass.
+        self.node_layouts.clear()
+        levels = assign_generations()
+        rows: dict[int, list[str]] = {}
+        for pid, level in levels.items():
+            rows.setdefault(level, []).append(pid)
+
+        for level in sorted(rows):
+            row = self.builder.ordered(rows[level])
+            y = level * GEN_GAP
+            relation = "ancestor" if level < 0 else "descendant" if level > 0 else None
+            coupled_row(row, y, relation=relation)
 
         # Keep manually moved spouses at their own positions. The marriage line
         # is drawn with elbows, so dragging one spouse bends the connector while
@@ -1142,6 +1123,7 @@ class FamilyTreeApp:
             pygame.draw.line(surface, GRID, (0, y), (left_w, y), 1)
 
     def render(self):
+        self.rects.clear()
         self.draw_background(self.screen)
 
         # draw marriages first
@@ -1174,6 +1156,12 @@ class FamilyTreeApp:
         seen = set()
         for pid in ordered_ids:
             if pid in seen or pid not in self.node_layouts:
+                continue
+            seen.add(pid)
+            self.draw_box(self.screen, self.node_layouts[pid])
+
+        for pid in self.builder.ordered(self.node_layouts):
+            if pid in seen:
                 continue
             seen.add(pid)
             self.draw_box(self.screen, self.node_layouts[pid])
@@ -1258,7 +1246,7 @@ class FamilyTreeApp:
 
     def zoom_at(self, pos, factor):
         before = self.screen_to_world(*pos)
-        self.user_zoom = max(0.25, min(4.0, self.user_zoom * factor))
+        self.user_zoom = max(1e-6, self.user_zoom * factor)
         zoom = self.auto_zoom * self.user_zoom
         left_w = self.viewport_w - PANEL_W
         if zoom <= 0:

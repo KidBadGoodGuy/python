@@ -611,8 +611,38 @@ def guardian_chapter(number, title, region, guardian, mark, stat, boss, scenes):
     rest(5)
 
 
+def intro():
+    say("====================================")
+    say("        ELEMENTAL GUARDIANS")
+    say("====================================")
+    say("A fantasy journey of roads, choices, hunger, courage, and old powers waking beneath a peaceful world.")
+    say("You will choose actions by typing the listed number, watch your food and water, rest when the road becomes cruel, and listen when companions speak.")
+    say("Battles use Attack, Guard, Eat, Drink, and Run. Travel may bring strangers, supplies, omens, memories, or danger.")
+    say("Most importantly, your mercy, resolve, truths, and wounds will follow you all the way to the ending.")
+    choice = ask("Before the story begins, how do you spend an ordinary Ashvale morning?", [("1", "Help at the bakery"), ("2", "Carry water from the well"), ("3", "Practice with a wooden sword")])
+    if choice == "1":
+        player["food"] += 2
+        player["morale"] += 4
+        say("You learn that warm bread can end arguments faster than wise speeches.")
+    elif choice == "2":
+        player["water"] += 2
+        player["endurance"] += 1
+        say("The well rope burns your palms, but every full bucket feels like a small promise kept.")
+    else:
+        player["strength"] += 1
+        player["resolve"] += 1
+        say("Old Fen teaches you that a hero who forgets footwork becomes a dramatic bruise.")
+    clamp()
+    show_time()
+    stats()
+    say("Ashvale is not a legend yet. It is home: pear trees, mended shutters, muddy boots by doorways, and people who know your name before you knock.")
+    say("Mara the baker, Pippin with his clay animals, old Fen, the village elder, and half the children in the lane pull you into chores, jokes, and small duties.")
+    say("For a while, the world asks nothing grander of you than kindness, patience, and whether you remembered to eat breakfast.")
+    pass_time(2)
+
+
 def prologue():
-    say("Elemental Guardians")
+    say("\nPrologue: The Black Sun Rumors")
     say("Ashvale wakes to ordinary miracles: pear blossoms on the road, kettle steam in windows, and old Fen arguing with his goat about politics.")
     say("You begin at the bakery because your mother always said history could wait until after breakfast.")
     say("Mara the baker slips you an extra heel of bread. 'For the road you keep pretending you won't take,' she says.")
@@ -621,6 +651,13 @@ def prologue():
     say("At the well, Pippin shows you a clay bird he made for his father in the north quarry.")
     say("'If monsters come,' he declares, 'I'll throw it at them. Artistic and tactical.'")
     pass_time(1)
+    say("Travelers arriving for market bring old rumors instead of fresh jokes: Elemental Guardians seen weeping in shrines, rivers running uphill for one hour, lightning striking the same empty grave nine times.")
+    say("The elder dismisses the stories in public, then asks you in private whether your mother's red scarf has ever felt warm when no fire was near.")
+    say("At dusk, you overhear Mara telling Fen that the Guardians were not only protectors. They were witnesses, judges, and perhaps jailers of something older than kingdoms.")
+    say("Nobody gives a speech about history. You collect it in fragments: a miner's prayer to Earth, a sailor's charm to Water, a cracked festival mask for Fire, a lullaby asking Wind to carry children safely home.")
+    pass_time(2)
+    say("Then the peaceful fragments stop fitting together.")
+    say("Milk sours black in clean pails. Crows land facing west. The ancient compass in your keepsake box ticks though it has no gears.")
     say("The village bell rings noon once, twice, and then keeps ringing though no hand pulls the rope.")
     say("The sun goes black. Pear blossoms lift from the ground and fly upward as if the sky has started inhaling.")
     player["morale"] -= 10
@@ -722,7 +759,7 @@ def final_chapters():
 
 
 def ending():
-    say("\nEpilogue")
+    say("\nEnding: The Choice After Chaos")
     if player["mercy"] >= 5 and player["chaos_taint"] <= 3:
         say("You refuse to destroy Chaos. You name it grief, bind it with every Guardian mark, and teach the world to mourn without becoming monstrous.")
         say("Kael spends the rest of his life rebuilding roads to villages he hurt, never asking anyone to call it redemption.")
@@ -738,6 +775,23 @@ def ending():
         say("Years later, travelers find impossible campsites where clean water waits beside warm bread and a note saying keep going.")
         say("Mira never stops searching. Kael, if he lives, walks behind her at a respectful distance, carrying the books.")
         say("Ending: The Wandering Seal. On moonless nights, Mira still hears your footsteps guarding the roads between worlds.")
+    say("The final battle is over, but victory is not the same as peace. The world waits to learn what your choices have made of it.")
+    epilogue()
+
+
+def epilogue():
+    say("\nEpilogue: Roads After Dawn")
+    say("Weeks pass before the sky trusts itself to be blue for a full day.")
+    say("You return first to Ashvale, where the bakery opens before the council hall because everyone agrees civilization should smell like bread.")
+    say("The Stone Kingdom carves public oaths into bridges. The Tide Kingdom builds schools above the floodline and below it. Caldera turns old war furnaces into communal ovens.")
+    say("Sky bridges are repaired with safer lies removed. Frost memorials are thawed carefully, one name at a time. Storm inventors put lightning in streetlamps instead of prisons. Green roots lift black flowers from buried secrets.")
+    if "Mira" in player["companions"]:
+        say("Mira finishes her book and refuses every royal editor. Its last chapter is blank so survivors can write in the margins.")
+    if "Kael, the Hooded Traveler" in player["companions"]:
+        say("Kael's fate remains difficult and human: some doors open for him, some close, and none of them erase what he did.")
+    say("You revisit shrines, markets, campsites, and battlefields. People remember your choices differently, but they remember that you chose.")
+    say("On the last night, the ancient compass gives one soft click and points past every known kingdom toward a star that should not be moving.")
+    say("The journey is complete. The road, however, is still alive.")
     stats()
 
 
@@ -1026,6 +1080,7 @@ def campaign():
 
 def main():
     random.seed()
+    intro()
     prologue()
     campaign()
 

@@ -355,67 +355,67 @@ def companion_campfire(region):
 def optional_discovery(region):
     discoveries = {
         "Stone Kingdom": [
-            "You find a quarry chapel where miners carved prayers into every stone they removed from the mountain.",
-            "A retired Guardian soldier named Oren shows you a shield split by a creature he swears had no face.",
-            "Behind a false wall, Mira uncovers a tax ledger that is really a map of tunnels older than the crown.",
-            "Pippin appears with dusty knees and asks whether heroes get scared underground. Kael says, 'Only the honest ones.'",
+            "You find a side tunnel with fresh air, dry ground, and tool marks on the wall.",
+            "Mira marks the tunnel on her map because it can be used as a safe return path.",
+            "Behind a loose stone, you find wrapped travel bread and add it to your food supply.",
+            "The discovery is simple but useful: the mine is dangerous, and supplies matter here.",
         ],
         "Tide Kingdom": [
-            "A floating market rocks gently in the rain. Merchants sell salt charms, stormglass, and letters rescued from shipwrecks.",
-            "You meet Luma the wandering musician, who plays a fiddle strung with silver fishbone and refuses payment except rumors.",
-            "In a drowned schoolhouse, chalk words still glow: water remembers the shape of every promise.",
-            "Mira finds a sealed bottle addressed to someone who died before the Black Eclipse. She carries it anyway.",
+            "Rain runs through clean roof channels and into public barrels.",
+            "You refill your canteen and check that everyone has enough water for the next road.",
+            "A sailor points to the flooded palace and says the water rises whenever the Admiral is angry.",
+            "The city teaches you the rule of this chapter: move carefully, keep water close, and watch the tide.",
         ],
         "Ember Kingdom": [
-            "Caldera's children race ember-kites above alleys warm enough to bake bread on the walls.",
-            "A glassmaker explains that fire is not anger. 'Anger destroys. Fire transforms. Learn the difference or burn with fools.'",
-            "You explore an ash garden where statues of criminals weep molten gold when lied to.",
-            "Kael refuses a cup of cinnamon tea because the steam forms a crown before vanishing.",
+            "Heat rolls through the streets, and your throat dries faster than it did on the open road.",
+            "You help carry water jars to families hiding from the fire cult.",
+            "A tired guard tells you the cult meets near the palace furnaces after sunset.",
+            "This region is about strength, but the first lesson is clear: strength is used to protect people.",
         ],
         "Sky Kingdom": [
-            "Cloud-herders guide woolly thunderheads into pens while bells keep the lightning calm.",
-            "Tamsin, the rival adventurer, drops from a rope ladder, steals one apple, then gives you three better ones.",
-            "A ruined tower hangs upside down under a bridge. Its library can only be read by people brave enough to look down.",
-            "The compass needle spins whenever Kael looks at the open sky, as if the horizon remembers chasing him.",
+            "You cross a high bridge where the wind pushes hard against your shoulders.",
+            "Mira ties a safety rope to your pack so one bad step does not end the journey.",
+            "Tamsin gives you apples, points to the next tower, and warns you about knife-winged falcons.",
+            "The Sky Kingdom tests agility, balance, and honest choices on narrow paths.",
         ],
         "Frost Kingdom": [
-            "You cross a battlefield preserved in blue ice. The soldiers' shadows are still fighting after their bodies have forgiven each other.",
-            "An old woman named Sava sells mittens, soup, and blunt prophecies. She says Mira will outlive a song and hate it.",
-            "In a mirror cave, you see yourself wearing a crown of black antlers. The image smiles first.",
-            "Kael breaks the mirror with his bare hand and bleeds darkness that freezes before it hits the ground.",
+            "Snow falls so thickly that the road disappears behind you after only a few steps.",
+            "You find a stone shelter, share heat, and decide who needs food before the next march.",
+            "Mira writes the names carved in the ice so they are not lost again.",
+            "The Frost Kingdom makes the system plain: low energy and low morale can be as dangerous as monsters.",
         ],
         "Storm Kingdom": [
-            "Copper rain ticks on rooftops like thousands of tiny clocks disagreeing about tomorrow.",
-            "Professor Venn, a lost historian with lightning-burned eyebrows, insists the Guardians were chosen by failure, not virtue.",
-            "You solve a street puzzle by stepping only when thunder answers the brass bells.",
-            "A wanted poster curls around Kael's boot. The ink is fresh. The date is three centuries old.",
+            "Lightning rails hum above the street and light the city in blue flashes.",
+            "Professor Venn shows you a machine gate that opens only when the thunder pattern is matched.",
+            "Mira spots patrol routes, curfew signs, and locked supply boxes near the palace road.",
+            "This place is fast and loud, so agility and careful timing matter before every fight.",
         ],
         "Green Kingdom": [
-            "Mushroom monks debate whether patience is a kind of courage or just fear wearing moss.",
-            "A fox diplomat offers safe passage if you can tell one true story without making yourself the hero.",
-            "In a hidden grove, every tree has a door, and behind each door is a room someone lost in childhood.",
-            "Mira leaves a ribbon for Ashvale on a branch. By morning the tree grows pears.",
+            "Healthy roots lift stones from the road and point you away from black flowers.",
+            "A fox guide offers help only after you tell one true thing without making yourself sound perfect.",
+            "You find clean berries, but Mira checks them twice before anyone eats.",
+            "The Green Kingdom teaches recovery: nature can heal, but only after the sickness is named.",
         ],
         "Ashvale": [
-            "Your old lane is smaller than memory and larger than grief.",
-            "The village elder gives you your mother's mended satchel and pretends not to cry when you recognize the stitchwork.",
-            "Children paint Guardian symbols on broken fences because bright colors make monsters hesitate, according to Pippin.",
-            "Kael stands before the memorial stones and whispers a name no one in Ashvale should know.",
+            "You repair one burned wall, carry water from the well, and pass bread to tired neighbors.",
+            "The village cannot give you a Guardian mark, but it gives you food, water, and morale.",
+            "Pippin places his clay bird in the window so everyone remembers why you are fighting.",
+            "Home is not a quiet chapter. It is the reason the whole journey matters.",
         ],
         "Chaos": [
-            "The road folds back on itself until your footprints meet you coming the other way.",
-            "A campfire burns without wood. In its smoke, ancient heroes argue about whether saving the world ever saved them.",
-            "You find a monument to the Ninth Element. Someone has scratched out the word monster and written loneliness.",
-            "Mira asks Kael who taught him the prison songs. He says, 'My jailer. My friend. My victim.'",
+            "The road bends in wrong directions, so you stop guessing and follow the compass.",
+            "Mira finds records showing that the eight Guardians are also eight locks on one prison.",
+            "Kael knows too much about the prison songs and will not explain how he learned them.",
+            "Chaos is confusing, but the goal stays clear: learn the truth before the final lock opens.",
         ],
         "Light Kingdom": [
-            "Pilgrims polish shattered halos and hang them from doorways so dawn knows where to enter.",
-            "A blind librarian reads sunlight by touch and says every ray has a different accent.",
-            "You discover a nursery where children once practiced forgiving enemies by naming stars after them.",
-            "Kael kneels at the threshold and cannot cross until Mira takes his hand. He looks more ashamed than grateful.",
+            "The road climbs toward dawn, but the air feels quiet instead of safe.",
+            "Pilgrims leave simple notes at the shrine: names of people they failed, helped, or miss.",
+            "The compass stops pointing to the road and points toward your chest.",
+            "The Light Kingdom is the final test of truth, mercy, and resolve.",
         ],
     }
-    for text in discoveries.get(region, ["You find an old campsite and learn nothing except that someone before you was also hungry, tired, and afraid."]):
+    for text in discoveries.get(region, ["You find an old camp, check your supplies, and keep moving."]):
         say(text)
         pass_time(1)
         if player["hunger"] < 45 and player["food"] > 0:
@@ -432,134 +432,201 @@ def optional_discovery(region):
 def guardian_conversation(region, guardian):
     talks = {
         "Brunda the Earth Guardian": [
-            "Brunda rises from the cavern floor like a mountain remembering it can stand.",
-            "Her voice is gravel over roots. 'I held cities on my back while kings argued over whose banners deserved wind.'",
-            "She admits she is tired of being mistaken for patience. Stone can wait, she says, but it can also fall.",
-            "When you mention Pippin's clay bird, her enormous hands close gently around the little token.",
-            "'Then the small ones still build,' Brunda says. 'Good. I can stand one more time.'",
+            "Brunda, Guardian of Earth, rises from the stone floor slowly enough for dust to fall from her shoulders.",
+            "She says the mine is not cursed. It is breaking because greedy leaders cut supports and called it progress.",
+            "She asks whether you came for a blessing or whether you came to help people who are still trapped below.",
+            "Her trial is clear: stand firm, carry weight for others, and do not confuse patience with doing nothing.",
         ],
         "Nerys the Water Guardian": [
-            "Nerys appears beneath the flooded palace, hair drifting around her like black kelp in moonlight.",
-            "'Water keeps no shape,' she says, 'yet mortals demand that grief remain tidy.'",
-            "She remembers carrying plague ships away from harbors and being cursed by the families who never knew she saved them.",
-            "Mira asks whether mercy can drown. Nerys answers, 'Only when it refuses to move.'",
-            "The Guardian touches your canteen, and for a moment you taste rain from every childhood in the world.",
+            "Nerys, Guardian of Water, waits under the flooded palace where the windows glow blue.",
+            "She says water can save, drown, clean, or hide. The choice belongs to the person using it.",
+            "She asks you to show mercy, but also to stop anyone who keeps hurting the helpless.",
+            "Her trial is clear: move with the flood, save who you can, and do not let grief become an excuse.",
         ],
         "Solun the Fire Guardian": [
-            "Solun steps from a furnace that has burned since the first winter, his beard a river of sparks.",
-            "He laughs like a roof collapsing and calls you little ember, but his eyes are full of old funerals.",
-            "'They begged me for weapons, then blamed me when weapons behaved like weapons.'",
-            "Kael says fire is easiest to corrupt. Solun replies, 'No. Fire is honest. People lie about what they want burned.'",
-            "He kneels so you can see the crack in his chest where the Eclipse has been drinking heat.",
+            "Solun, Guardian of Fire, steps from a furnace and lowers the heat so you can breathe.",
+            "He says fire is not only rage. It is also ovens, lamps, warnings, and courage on cold nights.",
+            "He asks what your strength is for: burning enemies, protecting families, or making a safer road.",
+            "His trial is clear: use power on purpose, and never call cruelty necessary just because it is easy.",
         ],
         "Vaelor the Wind Guardian": [
-            "Vaelor arrives as a hawk, a storm, a laughing old woman, and finally a tall figure with cloud-white braids.",
-            "'Names are cages with pretty doors,' Vaelor says, delighted when Mira writes that down angrily.",
-            "The Guardian confesses that freedom without responsibility becomes merely another kind of storm damage.",
-            "Tamsin challenges Vaelor to a race around the tower and loses so spectacularly that even Kael smiles.",
-            "Before speaking of Chaos, Vaelor makes everyone stand silently and listen to the wind carry prayers from below.",
+            "Vaelor, Guardian of Wind, arrives with a gust strong enough to shake every bridge chain.",
+            "They say freedom is good, but freedom without care can knock innocent people from the sky.",
+            "They ask if you can move quickly while still watching the people behind you.",
+            "Their trial is clear: balance speed with duty, and do not run from the cost of your choices.",
         ],
         "Ilyra the Ice Guardian": [
-            "Ilyra sits on a throne of frozen tears, young and ancient, with snowflakes caught in her lashes like unsent letters.",
-            "She says ice is memory given mercy: it preserves until the living are strong enough to thaw.",
-            "Her fear is not death but becoming a museum for pain nobody intends to heal.",
-            "You tell her about Ashvale's bakery being rebuilt first. Her smile is small enough to miss and bright enough to matter.",
-            "'Then warmth still negotiates with ruin,' she whispers. 'I will listen.'",
+            "Ilyra, Guardian of Ice, sits in a quiet hall where every footstep sounds important.",
+            "She says memory protects people from repeating old harm, but memory can also trap the living.",
+            "She asks you to carry the past without letting it freeze your heart shut.",
+            "Her trial is clear: endure the cold, keep the names, and still choose tomorrow.",
         ],
         "Astrax the Lightning Guardian": [
-            "Astrax descends through the copper storm as a figure made of sudden decisions.",
-            "Every word arrives before his mouth moves. 'Think faster,' he says. 'The future is impatient.'",
-            "Professor Venn bows and calls him the patron of inventors, fools, and anyone who has shouted 'hold this' before disaster.",
-            "Astrax fears stillness. He once paused for one breath, and an empire used that breath to build chains.",
-            "He asks whether you want power to strike enemies or light windows for strangers.",
+            "Astrax, Guardian of Lightning, speaks in bright flashes that make the room feel awake.",
+            "He says quick power can save a falling child or build a prison before anyone can object.",
+            "He asks whether you want power so people fear you or so people can find their way home.",
+            "His trial is clear: act fast, but make sure your first answer is not your worst one.",
         ],
         "Eloane the Nature Guardian": [
-            "Eloane is not one shape. She is antlers, petals, soil, grandmother hands, wolf eyes, and a voice like rain in leaves.",
-            "'Nature is not kind,' she says, 'but it is generous with second chances.'",
-            "The forest around her is sick because it has been forced to grow around a lie buried in its roots.",
-            "A fox diplomat bows to her. Mushroom monks stop arguing. Even Kael lowers his hood.",
-            "Eloane asks what you will plant when vengeance has used up all the fields.",
+            "Eloane, Guardian of Nature, speaks through leaves, roots, birds, and the soil under your boots.",
+            "She says nature can heal, but it does not heal by pretending sickness is beautiful.",
+            "She asks what you will plant after anger has used up every field.",
+            "Her trial is clear: name the rot, pull it out, and leave room for new life.",
         ],
         "Seraphine": [
-            "Seraphine waits in a hall where dawn has been folded into banners and stored against despair.",
-            "She looks almost human until she opens her eyes and every candle remembers why it was made.",
-            "'Light reveals,' she says. 'It does not excuse. It does not flatter. It simply refuses to let wounds hide forever.'",
-            "She knew Kael before the hood, before the bargain, before grief taught him to call prisons doors.",
-            "When she speaks his true name, he drops to one knee as if struck by a bell.",
+            "Seraphine, Guardian of Light, waits in the last shrine with no crown and no army.",
+            "She says light does not make people innocent. It only shows what is true.",
+            "She knows Kael from before the hood, before the compass, and before Chaos used his grief.",
+            "Her trial is clear: face the truth, even when truth does not make anyone look clean.",
         ],
         "Nerys's Echo": [
-            "The echo of Nerys pours from a cracked shell and speaks with the voices of drowned librarians.",
-            "It remembers the first war against Chaos as a debate that became a battlefield only after everyone stopped listening.",
-            "The echo cannot fight beside you, but it can tell you where truth was hidden from kings.",
+            "Nerys's Echo rises from a cracked shell and speaks with a softer voice than the Guardian had.",
+            "It says the old war began when each side stopped listening and started calling fear wisdom.",
+            "The echo cannot fight for you, but it can show where the truth was hidden.",
         ],
         "Solun's Ember": [
-            "Solun's ember hovers above a brazier, sulking like a tiny sun denied proper drama.",
-            "It tells you courage is not fearlessness. Courage is fear forced to carry water and keep walking.",
+            "Solun's Ember glows above a brazier and spits small sparks when people lie.",
+            "It says courage does not mean feeling safe. Courage means helping while afraid.",
+            "It asks you to carry that lesson into the next hard choice.",
         ],
         "Brunda's Root": [
-            "Brunda's root coils through the hollow mountain and taps ancient rhythms against your boots.",
-            "It says the first Guardians were ordinary people who chose to hold the line after legends ran away.",
+            "Brunda's Root taps the cave floor in a slow rhythm like a heartbeat.",
+            "It says the first Guardians were ordinary people who held the line after heroes failed.",
+            "It reminds you that endurance is not loud, but it can save a world.",
         ],
         "Ilyra's Tear": [
-            "Ilyra's tear freezes in your palm without hurting you.",
-            "Inside it, you see a future where you win and still have to live afterward.",
+            "Ilyra's Tear freezes in your hand without hurting you.",
+            "Inside it, you see that winning the final fight will not erase the work after it.",
+            "The vision is not hopeless. It is a warning to survive with care.",
         ],
         "Astrax's Spark": [
-            "Astrax's spark jumps between your fingers and spells rude advice in blue fire.",
-            "It insists destiny is just a deadline with better public relations.",
+            "Astrax's Spark jumps between your fingers like a tiny storm trying to teach a lesson.",
+            "It says destiny is only a deadline with a louder name.",
+            "It tells you to think, choose, and then move before fear makes the choice for you.",
         ],
         "Eloane's Seed": [
-            "Eloane's seed hums under the soil of your pack.",
-            "It shows you roots sharing food with trees too proud to ask for help.",
+            "Eloane's Seed hums in your pack whenever the road grows quiet.",
+            "It shows roots sharing food with weak trees instead of leaving them to die.",
+            "It asks you to remember that survival is stronger when it is shared.",
         ],
         "No Guardian": [
-            "There is no Guardian waiting in Ashvale, only people with soot on their faces and bread in their hands.",
-            "The village elder says, 'Do not insult us by calling survival small.'",
-            "For once, the legend is not ancient. It is a dozen neighbors raising a roof before rain.",
+            "Ashvale has no Guardian waiting at the end of the street.",
+            "Instead, your neighbors bring food, water, bandages, and tired smiles.",
+            "They remind you that saving the world only matters because real people live in it.",
+        ],
+        "The Dawn Oracle": [
+            "The Dawn Oracle stands at the gate of light and does not speak in riddles.",
+            "It says the last choice will test mercy, resolve, and truth together.",
+            "It warns you that a simple answer can still be a hard answer.",
         ],
     }
-    for text in talks.get(guardian, [f"{guardian} studies you with eyes full of storms the history books forgot."]):
+    for text in talks.get(guardian, [f"{guardian} watches you and waits for your answer."]):
         say(text)
         pass_time(1)
-    choice = ask("What do you ask before the trial begins?", [("1", "Ask about the old wars"), ("2", "Ask what the Guardian fears"), ("3", "Ask why Kael knows so much")])
+    choice = ask("What do you ask before the trial begins?", [("1", "What happened long ago?"), ("2", "What are you afraid of?"), ("3", "Why does Kael know this?")])
     if choice == "1":
         player["truths"] += 1
-        say("The answer comes slowly: Chaos was born when every element tried to become the only element, and the silence between them learned hunger.")
+        say("You learn that Chaos was locked away by the eight Guardians after the elements nearly destroyed each other.")
     elif choice == "2":
         player["mercy"] += 1
-        say("The Guardian does not hide the answer. Immortals fear being obeyed long after they are wrong.")
+        say("The Guardian says even old powers fear making one wrong choice and being obeyed forever.")
     else:
         player["truths"] += 1
         player["chaos_taint"] += 1
-        say("Kael's hand tightens around his sleeve. The Guardian looks away first, which frightens you more than any confession.")
+        say("Kael looks away. The Guardian knows his secret, but Kael is not ready to say it aloud.")
     clamp()
 
 
 def boss_introduction(boss, region):
     speeches = {
-        "Lord Malgrit of the Hollow Mine": ["Lord Malgrit arrives in armor made from stolen headstones.", "He claims the mountain owes him obedience because he has buried enough workers inside it."],
-        "The Drowned Admiral": ["A ship's bell tolls underwater, and the Drowned Admiral marches from the flood with barnacles for medals.", "'I kept my fleet alive by sinking everyone else first,' he says."],
-        "The Brass Prophet": ["The Brass Prophet's mask opens like a furnace door.", "He preaches that only fire can purify a world too sentimental to save itself."],
-        "The Silent Falconer": ["A hooded figure releases birds made of knives and never speaks.", "Vaelor says silence can be a mercy, but this silence is a leash."],
-        "Queen Rimeheart": ["Queen Rimeheart enters with a procession of frozen mirrors, each one showing a subject who disappointed her.", "She wants a kingdom where nobody changes because change stole everyone she loved."],
-        "The Clockwork Tyrant": ["Gears rise through the plaza, assembling a king from lawbooks, swords, and unpaid debts.", "The Clockwork Tyrant declares mercy an inefficient machine part."],
-        "The Blight Stag": ["The Blight Stag steps from the trees, antlers dripping black flowers.", "It was once a sacred beast until Eclipse spores taught it that rot could also bloom."],
-        "The Eclipse Butcher": ["The Eclipse Butcher wears an apron stitched from village flags.", "It remembers every home it ruined and speaks in the voices of people who begged it to stop."],
-        "Archivist of Teeth": ["The Archivist of Teeth smiles with stolen mouths arranged along its sleeves.", "It collects truths by eating the witnesses."],
-        "The Cinder Regent": ["The Cinder Regent applauds from a balcony while refugees are dragged below to feed the furnaces.", "He says hope burns longer when taxed properly."],
-        "The Mountain That Hates": ["The whole mountain inhales, and every tunnel becomes a throat.", "It hates because miners carved greed into its bones and called the wounds progress."],
-        "The Future Eater": ["The Future Eater unfolds from a hymn, all empty eyes and lullaby teeth.", "It offers painless oblivion with the tenderness of a nurse smothering a patient."],
-        "The Thunderless King": ["The Thunderless King rides a dead lightning bolt into view.", "He stole thunder so no rebellion could ever hear itself begin."],
-        "The First Serpent": ["The First Serpent coils around the garden's oldest tree, wearing Kael's face and then your own.", "It says every betrayal begins as a wish to spare someone pain."],
-        "The Pale Herald": ["The Pale Herald carries a trumpet made from dawnbone.", "It announces that light has failed and all lamps should surrender their flames."],
+        "Lord Malgrit of the Hollow Mine": [
+            "Lord Malgrit blocks the mine gate with armed guards behind him.",
+            "He used miners as tools and cut corners until the mountain started to fail.",
+            "This fight is not only about winning. It is about freeing the people trapped below.",
+        ],
+        "The Drowned Admiral": [
+            "The Drowned Admiral rises from the harbor with a ship bell ringing under the water.",
+            "He saved himself by sinking others, and now he calls that leadership.",
+            "The battle begins where the flood is strongest, so you brace yourself and watch your footing.",
+        ],
+        "The Brass Prophet": [
+            "The Brass Prophet lifts a burning mask before the palace furnaces.",
+            "He says weak people should be burned away so the world can be pure.",
+            "Solun's lesson is clear here: fire should protect homes, not decide who deserves to live.",
+        ],
+        "The Silent Falconer": [
+            "The Silent Falconer sends knife-winged birds across the tower bridge.",
+            "He never speaks because fear already carries his message for him.",
+            "The fight tests agility, timing, and whether you can move without losing your courage.",
+        ],
+        "Queen Rimeheart": [
+            "Queen Rimeheart stands behind frozen mirrors that show people at their worst moments.",
+            "She wants a kingdom where nothing changes, because change once hurt her.",
+            "Ilyra's trial answers her: memory matters, but life must still move.",
+        ],
+        "The Clockwork Tyrant": [
+            "The Clockwork Tyrant marches out of the palace machine in perfect metal steps.",
+            "It turns laws into chains and calls mercy a broken part.",
+            "Astrax's power flashes in the machine core, waiting to be freed.",
+        ],
+        "The Blight Stag": [
+            "The Blight Stag steps from the sick forest with black flowers falling from its antlers.",
+            "It was once sacred, but the Eclipse taught its wounds to spread.",
+            "Eloane's lesson guides you: name the rot, then pull it out.",
+        ],
+        "The Eclipse Butcher": [
+            "The Eclipse Butcher walks into Ashvale wearing voices the village still misses.",
+            "It tries to make home feel unsafe so morale will break before the fight starts.",
+            "Your neighbors stand behind you, and that is the mark this chapter gives.",
+        ],
+        "Archivist of Teeth": [
+            "The Archivist of Teeth guards the drowned records with stolen mouths on its robe.",
+            "It eats witnesses so history becomes easier to control.",
+            "Mira raises her notes, and the boss attacks because truth is now in the open.",
+        ],
+        "The Cinder Regent": [
+            "The Cinder Regent waits above the furnaces while refugees are pushed toward the heat.",
+            "He sells fear as order and calls every selfish choice necessary.",
+            "The chapter's courage becomes simple: protect the people he would spend.",
+        ],
+        "The Mountain That Hates": [
+            "The mountain wakes with a sound like stone learning to breathe.",
+            "Old greed left wounds in its deep places, and now those wounds answer as rage.",
+            "Endurance matters here because the mountain will not fall quickly or kindly.",
+        ],
+        "The Future Eater": [
+            "The Future Eater sings softly from the snowfield.",
+            "It offers to remove pain by removing every future where pain could happen.",
+            "You choose a hard tomorrow over an empty one, and the song becomes a battle.",
+        ],
+        "The Thunderless King": [
+            "The Thunderless King waits in a fortress where even your heartbeat sounds too loud.",
+            "He stole thunder so rebels could not hear each other gather.",
+            "Astrax's Spark jumps in your hand, reminding you that silence is not the same as peace.",
+        ],
+        "The First Serpent": [
+            "The First Serpent waits in the garden beside the first refused apology.",
+            "It twists kind wishes into cruel choices and then blames the person who wished.",
+            "This battle is about seeing the trick before it turns mercy into harm.",
+        ],
+        "The Pale Herald": [
+            "The Pale Herald lifts a dark trumpet at the last shrine of light.",
+            "It says hope has failed and every lamp should go out before disappointment can return.",
+            "Seraphine stands with you, and the final light refuses to be quiet.",
+        ],
+        "The Candleless Monk": [
+            "The Candleless Monk blocks the dawn gate with an empty lantern.",
+            "He believes hope is cruel because it asks people to try again.",
+            "The Dawn Oracle waits beyond him, so this fight opens the way to the final truth.",
+        ],
     }
-    for text in speeches.get(boss, [f"{boss} emerges from {region}, carrying the Black Eclipse like a wound that learned to walk."]):
+    for text in speeches.get(boss, [f"{boss} comes from {region} and brings the Eclipse with it."]):
         say(text)
         pass_time(1)
     if player["morale"] < 40:
-        say("Your hands tremble before the battle. Mira notices and stands closer without saying anything.")
+        say("Your hands shake, but your companions stand beside you and remind you why you came.")
     else:
-        say("You step forward before fear can finish making its argument.")
+        say("You step forward with enough courage to start, even if you still feel afraid.")
     clamp()
 
 
@@ -615,145 +682,124 @@ def intro():
     say("====================================")
     say("        ELEMENTAL GUARDIANS")
     say("====================================")
-    say("A fantasy journey of roads, choices, hunger, courage, and old powers waking beneath a peaceful world.")
-    say("You will choose actions by typing the listed number, watch your food and water, rest when the road becomes cruel, and listen when companions speak.")
-    say("Battles use Attack, Guard, Eat, Drink, and Run. Travel may bring strangers, supplies, omens, memories, or danger.")
-    say("Most importantly, your mercy, resolve, truths, and wounds will follow you all the way to the ending.")
+    say("A clear fantasy adventure about saving eight Guardians.")
+    say("Type the listed number to choose an action.")
+    say("Watch food, water, energy, morale, hunger, and thirst. Travel can give supplies or start battles.")
+    say("Mercy, resolve, truth, and chaos taint change the ending.")
     choice = ask("Before the story begins, how do you spend an ordinary Ashvale morning?", [("1", "Help at the bakery"), ("2", "Carry water from the well"), ("3", "Practice with a wooden sword")])
     if choice == "1":
         player["food"] += 2
         player["morale"] += 4
-        say("You learn that warm bread can end arguments faster than wise speeches.")
+        say("You pack extra bread and feel ready.")
     elif choice == "2":
         player["water"] += 2
         player["endurance"] += 1
-        say("The well rope burns your palms, but every full bucket feels like a small promise kept.")
+        say("You carry heavy buckets and grow tougher.")
     else:
         player["strength"] += 1
         player["resolve"] += 1
-        say("Old Fen teaches you that a hero who forgets footwork becomes a dramatic bruise.")
+        say("Old Fen teaches you basic footwork.")
     clamp()
     show_time()
     stats()
-    say("Ashvale is not a legend yet. It is home: pear trees, mended shutters, muddy boots by doorways, and people who know your name before you knock.")
-    say("Mara the baker, Pippin with his clay animals, old Fen, the village elder, and half the children in the lane pull you into chores, jokes, and small duties.")
-    say("For a while, the world asks nothing grander of you than kindness, patience, and whether you remembered to eat breakfast.")
+    say("Ashvale is your home. It has a bakery, a well, farms, and neighbors who know you.")
+    say("Mara the baker, Pippin, old Fen, and the elder all trust you with small chores.")
+    say("The story starts simple: help people, eat breakfast, and stay ready.")
     pass_time(2)
 
 
 def prologue():
-    say("\nPrologue: The Black Sun Rumors")
-    say("Ashvale wakes to ordinary miracles: pear blossoms on the road, kettle steam in windows, and old Fen arguing with his goat about politics.")
-    say("You begin at the bakery because your mother always said history could wait until after breakfast.")
-    say("Mara the baker slips you an extra heel of bread. 'For the road you keep pretending you won't take,' she says.")
+    say("\nPrologue: The Black Sun")
+    say("Ashvale starts as a normal village morning.")
+    say("Mara gives you bread for the road.")
     player["food"] += 1
     pass_time(1)
-    say("At the well, Pippin shows you a clay bird he made for his father in the north quarry.")
-    say("'If monsters come,' he declares, 'I'll throw it at them. Artistic and tactical.'")
+    say("Pippin shows you a clay bird he made for his father.")
+    say("Travelers warn that the Elemental Guardians are disappearing.")
     pass_time(1)
-    say("Travelers arriving for market bring old rumors instead of fresh jokes: Elemental Guardians seen weeping in shrines, rivers running uphill for one hour, lightning striking the same empty grave nine times.")
-    say("The elder dismisses the stories in public, then asks you in private whether your mother's red scarf has ever felt warm when no fire was near.")
-    say("At dusk, you overhear Mara telling Fen that the Guardians were not only protectors. They were witnesses, judges, and perhaps jailers of something older than kingdoms.")
-    say("Nobody gives a speech about history. You collect it in fragments: a miner's prayer to Earth, a sailor's charm to Water, a cracked festival mask for Fire, a lullaby asking Wind to carry children safely home.")
-    pass_time(2)
-    say("Then the peaceful fragments stop fitting together.")
-    say("Milk sours black in clean pails. Crows land facing west. The ancient compass in your keepsake box ticks though it has no gears.")
-    say("The village bell rings noon once, twice, and then keeps ringing though no hand pulls the rope.")
-    say("The sun goes black. Pear blossoms lift from the ground and fly upward as if the sky has started inhaling.")
+    say("Then the signs get worse: black milk, nervous crows, and a compass that moves by itself.")
+    say("The sun turns black. Monsters attack Ashvale.")
     player["morale"] -= 10
     clamp()
     battle(make_enemy("Eclipse Ravager", 8, 8, 8, 7))
-    say("When the creature falls, the street is not victorious. It is full of people calling names that do not answer.")
-    say("A hooded traveler steps through smoke and falling ash. He knows exactly where the wounded are trapped before anyone tells him.")
-    say("He pulls you from burning wheat. His voice is kind, but the shadows obey him too quickly.")
-    say("'The Guardians are vanishing,' he says. 'If the compass chose you, the world has already run out of safer plans.'")
-    say("He gives you an ancient compass. Its needle points not north, but toward whatever the world is most afraid to lose.")
+    say("After the fight, people are hurt and homes are burning.")
+    say("A hooded traveler named Kael helps rescue the wounded.")
+    say("He says the compass chose you because the Guardians need help.")
+    say("The compass points toward the next danger instead of north.")
     player["companions"].append("Kael, the Hooded Traveler")
     travel("Ashvale", 6, danger=2)
-    say("You find Mira at the ruined bridge, pinning a monster's sleeve to the planks with one knife while writing with the other hand.")
-    say("'Courier,' she says, not looking up. 'Historian if we survive. Liar if we don't.'")
-    say("Together you rescue three children from the mill cellar, then sit in the dust while they argue over who screamed bravest.")
+    say("You find Mira at the ruined bridge.")
+    say("She is a courier who records what really happened.")
+    say("Together you rescue children from the mill cellar.")
     player["companions"].append("Mira")
     player["inventory"].append("Mira's Map of Living Roads")
-    say("Mira studies Kael's compass by firelight and frowns. 'This script is older than the Guardian churches. Why did he have it wrapped like a funeral relic?'")
+    say("Mira studies Kael's compass and does not fully trust him.")
     companion_campfire("Ashvale")
 
 
 def interlude_truth():
     say("\nChapter 10: The Ninth Door")
-    say("Orison appears at dusk where no map agrees it should be: an abandoned city built around a door too large for any wall.")
-    say("Its streets are paved with white tiles, each tile engraved with a name. Some are kings. Some are children. Some are scratched away.")
+    say("You reach Orison, an empty city built around a huge sealed door.")
     optional_discovery("Chaos")
     travel("Chaos", 7, danger=2)
-    say("In the central archive, bells ring under the streets though every tower has fallen.")
-    say("Professor Venn returns, breathless and delighted, dragging three satchels of forbidden rubbings behind him.")
-    say("'Good news,' he pants. 'The world is older, sadder, and more illegally engineered than we thought.'")
-    say("Mira deciphers a wall of guardian names. There are not eight circles around the world. There are eight locks around one prison.")
-    say("The first Guardians were chosen after the Elemental War, when fire tried to rule water, water tried to drown earth, and light tried to erase shadow entirely.")
-    say("Chaos was born from everything the elements rejected: contradiction, grief, hunger, change, endings, beginnings no one asked for.")
-    say("Kael smiles sadly and admits the compass awakens each lock when a Guardian is freed.")
-    say("'I thought I was saving them,' he says, and Mira's voice goes flat. 'No. You thought we were useful.'")
-    choice = ask("Do you confront Kael or pretend trust until you learn more?", [("1", "Confront him"), ("2", "Pretend trust"), ("3", "Ask Mira to steal the compass at night")])
+    say("Mira reads the wall records in the archive.")
+    say("The eight Guardians are not only protectors. They are locks on a prison.")
+    say("Chaos is inside that prison.")
+    say("Kael admits the compass wakes each lock when a Guardian is freed.")
+    say("He says he thought opening the prison could bring back his lost kingdom.")
+    choice = ask("What do you do about Kael?", [("1", "Confront him now"), ("2", "Keep watching him"), ("3", "Ask Mira to take part of the compass")])
     if choice == "1":
         player["truths"] += 2
-        say("Kael removes his hood. For the first time, he looks less mysterious than exhausted.")
-        say("His shadow remains hooded after he does not.")
+        say("Kael's shadow attacks when you challenge him.")
         battle(make_enemy("Kael's Shadow", power() + 2, power() + 2, power() + 2, power() + 5))
     elif choice == "2":
         player["chaos_taint"] += 1
-        say("You swallow anger. Kael calls that wisdom. Mira waits until he leaves and calls it dangerous.")
-        say("She does not abandon you. That makes the silence worse.")
+        say("You hide your anger so you can learn more.")
     else:
         player["mercy"] += 1
         player["inventory"].append("Stolen Compass Splinter")
-        say("Mira returns pale. 'It whispered your name in my mother's voice,' she says.")
-        say("The splinter points toward the Light Kingdom, then toward Kael, then toward your heart.")
-    say("Before sleep, Kael tells you his kingdom died in a plague the Guardians could have stopped if they had broken the prison.")
-    say("You do not know whether it is confession, manipulation, or both. The worst truths often are.")
+        say("Mira steals a compass splinter. It points to Kael and then to your heart.")
+    say("Before sleep, Kael says his kingdom died from a plague.")
+    say("You still do not know if he is sorry or using you.")
     companion_campfire("Chaos")
     rest(6)
 
 
 def final_chapters():
     say("\nChapter 18: The Last Guardian of Light")
-    say("The road to the Light Kingdom begins at midnight and climbs toward dawn without ever passing morning.")
+    say("You travel to the Light Kingdom for the final Guardian.")
     travel("Light Kingdom", 8, danger=2)
     optional_discovery("Light Kingdom")
-    say("The Light Kingdom is not bright. It is a library of dawns, each sunrise stored in crystal for a day when hope runs out.")
-    say("Seraphine, Guardian of Light, kneels among broken suns. She knew Kael as a prince before Chaos wore his grief like a mask.")
+    say("Seraphine, Guardian of Light, knows Kael's past.")
     guardian_conversation("Light Kingdom", "Seraphine")
-    say("Kael cannot meet her eyes. 'You left us to die,' he says.")
-    say("Seraphine answers without defending herself. 'Yes. I chose the prison over your kingdom. I have carried every name since.'")
-    say("For the first time, Kael's anger has nowhere theatrical to stand. It becomes a man crying in a ruined hall.")
+    say("Kael says Seraphine let his kingdom die to keep Chaos locked away.")
+    say("Seraphine says it is true, and she still carries the guilt.")
     boss_introduction("The Pale Herald", "Light Kingdom")
     battle(make_enemy("The Pale Herald", power() + 5, power() + 4, power() + 5, power() + 4))
-    say("Seraphine sacrifices her immortal flame to seal the compass inside your heart instead of Kael's hand.")
-    say("It hurts like swallowing a sunrise. It heals like hearing your name spoken by someone who waited for you.")
+    say("Seraphine puts the compass light inside your heart so Kael cannot control it.")
     player["guardian_marks"].append("Light")
     player["vitality"] += 3
     player["mercy"] += 1
-    say("Chaos is released anyway, but now it must face someone who has walked the whole wounded world.")
+    say("Chaos is released, but you now carry every Guardian mark.")
     companion_campfire("Light Kingdom")
     travel("Chaos", 6, danger=3)
     say("\nChapter 19: The Black Eclipse Opens")
-    say("The sky fills with doors. Behind each one is a version of the world where someone made a different choice and called it peace.")
-    say("Kael stands beneath them, no hood left, no mystery left, only grief with a weapon.")
-    say("'I only wanted my dead kingdom back,' he says. Chaos answers with every voice you have lost.")
-    choice = ask("What do you say to Kael before the final battle?", [("1", "Your grief is real, but it cannot rule us"), ("2", "You used us, and I will end this"), ("3", "Help me save what is left of you")])
+    say("Chaos opens the sky like many doors.")
+    say("Kael stands under them and wants his dead kingdom back.")
+    choice = ask("What do you say to Kael before the final battle?", [("1", "Your grief cannot rule us"), ("2", "You used us, and I will stop you"), ("3", "Help me save what is left of you")])
     if choice == "1":
         player["mercy"] += 1
-        say("Kael flinches as if mercy is harder to endure than hatred.")
+        say("Kael hears you, but Chaos still holds him.")
     elif choice == "2":
         player["resolve"] += 2
-        say("He nods once. 'Then strike cleanly. I am tired of doors.'")
+        say("You prepare to end the fight cleanly.")
     else:
         player["mercy"] += 2
         player["chaos_taint"] += 1
-        say("For one breath, Kael reaches back. Chaos drags him forward by the wound in his shadow.")
+        say("Kael reaches back for a moment before Chaos pulls him away.")
     battle(make_enemy("Kael, Vessel of Chaos", power() + 5, power() + 4, power() + 5, power() + 4))
-    say("Kael falls. Mira catches him because she is furious, not because she has forgiven him.")
-    say("The Ninth Element crawls free: not fire, not storm, but the hunger beneath all endings.")
-    say("Chaos speaks in your voice first. Then your mother's. Then Pippin's. Then no voice at all, which is worst.")
+    say("Kael falls, and Chaos breaks free.")
+    say("Chaos is the pain and hunger left by every ending.")
     battle(make_enemy("Chaos Unbound", power() + 7, power() + 6, power() + 8, power() + 5))
     ending()
 
@@ -761,318 +807,164 @@ def final_chapters():
 def ending():
     say("\nEnding: The Choice After Chaos")
     if player["mercy"] >= 5 and player["chaos_taint"] <= 3:
-        say("You refuse to destroy Chaos. You name it grief, bind it with every Guardian mark, and teach the world to mourn without becoming monstrous.")
-        say("Kael spends the rest of his life rebuilding roads to villages he hurt, never asking anyone to call it redemption.")
-        say("Mira publishes the true history with every ugly part left in. The first copy is chained in Ashvale's bakery so anyone can argue with it over breakfast.")
-        say("Ending: Dawn Covenant. The Guardians return as mortal guides, and every kingdom lights one lamp for Ashvale.")
+        say("You do not destroy Chaos. You bind it and teach the world to face grief safely.")
+        say("Kael spends his life repairing the harm he caused.")
+        say("Mira writes the true history so no one can hide it again.")
+        say("Ending: Dawn Covenant.")
     elif player["resolve"] >= player["mercy"]:
-        say("You drive the Guardian marks into the eclipse and shatter Chaos at the cost of magic itself.")
-        say("The Guardians fade smiling, terrified, relieved. Seraphine is the last light to go, and she thanks you for letting the world grow up.")
-        say("Mira keeps traveling because history is heavier without miracles and someone must make sure kings do not edit it again.")
-        say("Ending: Age of Iron. The world survives without miracles, and your name becomes the first law of every rebuilt kingdom.")
+        say("You shatter Chaos and magic fades from the world.")
+        say("The Guardians become mortal and the kingdoms rebuild without miracles.")
+        say("Mira keeps traveling to protect the truth.")
+        say("Ending: Age of Iron.")
     else:
-        say("The compass splinter opens in your chest. You imprison Chaos within yourself and walk beyond the map before anyone can stop you.")
-        say("Years later, travelers find impossible campsites where clean water waits beside warm bread and a note saying keep going.")
-        say("Mira never stops searching. Kael, if he lives, walks behind her at a respectful distance, carrying the books.")
-        say("Ending: The Wandering Seal. On moonless nights, Mira still hears your footsteps guarding the roads between worlds.")
-    say("The final battle is over, but victory is not the same as peace. The world waits to learn what your choices have made of it.")
+        say("You seal Chaos inside yourself and leave the map behind.")
+        say("Travelers later find safe camps that you left for them.")
+        say("Mira keeps searching for you.")
+        say("Ending: The Wandering Seal.")
+    say("The final battle is over. The world now lives with your choices.")
     epilogue()
 
 
 def epilogue():
     say("\nEpilogue: Roads After Dawn")
-    say("Weeks pass before the sky trusts itself to be blue for a full day.")
-    say("You return first to Ashvale, where the bakery opens before the council hall because everyone agrees civilization should smell like bread.")
-    say("The Stone Kingdom carves public oaths into bridges. The Tide Kingdom builds schools above the floodline and below it. Caldera turns old war furnaces into communal ovens.")
-    say("Sky bridges are repaired with safer lies removed. Frost memorials are thawed carefully, one name at a time. Storm inventors put lightning in streetlamps instead of prisons. Green roots lift black flowers from buried secrets.")
+    say("Weeks later, Ashvale opens the bakery again.")
+    say("Each kingdom rebuilds in a clearer, kinder way.")
     if "Mira" in player["companions"]:
-        say("Mira finishes her book and refuses every royal editor. Its last chapter is blank so survivors can write in the margins.")
+        say("Mira finishes her book and leaves space for survivors to add their stories.")
     if "Kael, the Hooded Traveler" in player["companions"]:
-        say("Kael's fate remains difficult and human: some doors open for him, some close, and none of them erase what he did.")
-    say("You revisit shrines, markets, campsites, and battlefields. People remember your choices differently, but they remember that you chose.")
-    say("On the last night, the ancient compass gives one soft click and points past every known kingdom toward a star that should not be moving.")
-    say("The journey is complete. The road, however, is still alive.")
+        say("Kael's fate is human and difficult. Some people forgive him, and some do not.")
+    say("The compass gives one last click and points to a new road.")
+    say("The journey is complete, but the road is still alive.")
     stats()
 
 
 def campaign():
     chapters = [
-        (
-            2,
-            "The Root-Crowned Gate",
-            "Stone Kingdom",
-            "Brunda the Earth Guardian",
-            "Earth",
-            "endurance",
-            "Lord Malgrit of the Hollow Mine",
-            [
-                "The Stone Kingdom begins where the road stops pretending to be flat.",
-                "Terraced villages cling to cliffs while miners sing to keep tunnels from collapsing.",
-                "At Graniteford, an elder named Dama measures strangers by how they treat mules, children, and borrowed tools.",
-                "A child named Pippin asks you to carry a clay bird to his father below the mountain.",
-                "Kael knows the miners' mourning song. When Dama asks who taught him, he says the dead are generous teachers.",
-                "The Stone Council hides a prophecy inside tax records because tyrants never read them.",
-                "Mira spends an afternoon pretending to be an accountant and emerges with three maps, two warrants, and a headache.",
-                "The quarry gates open after you help shore up a cracked support beam with your own aching shoulders.",
-            ],
-        ),
-        (
-            3,
-            "The Kingdom Under Rain",
-            "Tide Kingdom",
-            "Nerys the Water Guardian",
-            "Water",
-            "vitality",
-            "The Drowned Admiral",
-            [
-                "Rain begins three miles before the Tide Kingdom and never quite ends.",
-                "Canal lanterns drift like patient stars across streets of blue stone.",
-                "You help ferrymen rescue families from houses that have begun dreaming they are ships.",
-                "Captain Sella, who has one wooden leg and no patience for prophecy, teaches you which ropes can be trusted wet.",
-                "Mira teaches you to read tide-knots while Kael refuses to board any boat with mirrors.",
-                "A shrine to Nerys is filled with bowls of tears, each labeled with the name of someone forgiven too late.",
-                "Luma the musician returns and plays a song that makes the rain fall upward for exactly seven notes.",
-                "At low tide, black stairs appear beneath the harbor and every bell in the city rings from underwater.",
-            ],
-        ),
-        (
-            4,
-            "Embers That Remember",
-            "Ember Kingdom",
-            "Solun the Fire Guardian",
-            "Fire",
-            "strength",
-            "The Brass Prophet",
-            [
-                "The desert city of Caldera is built inside the rib cage of an ancient dragon.",
-                "Its people greet dawn by lighting lanterns from yesterday's ashes and naming one mistake they will not repeat.",
-                "A baker feeds refugees with ovens powered by volcanic tears.",
-                "You help carry water through streets so hot the shadows look thirsty.",
-                "In the Trial of Coals, you must walk slowly and speak one regret aloud.",
-                "Kael names a city you have never heard of. The coals turn blue beneath his feet.",
-                "A brass-robed cult preaches that the Eclipse is a forge and the weak are only ore.",
-                "Mira buys a heat-cracked lens from a child inventor and discovers it reveals invisible chains around the palace.",
-            ],
-        ),
-        (
-            5,
-            "Roads in the Sky",
-            "Sky Kingdom",
-            "Vaelor the Wind Guardian",
-            "Wind",
-            "agility",
-            "The Silent Falconer",
-            [
-                "The Sky Kingdom hangs above the world on chains of prayer, old engineering, and stubbornness.",
-                "Bridges of woven cloud connect towers where children keep pet thunderheads.",
-                "A sky-smuggler named Tamsin offers shortcuts, lies, and excellent apples.",
-                "You cross a bridge that vanishes whenever anyone lies, which makes negotiations with Tamsin athletic.",
-                "The wind carries your mother's lullaby, though she never climbed higher than Ashvale's mill.",
-                "Kael grows quieter with every mile of open air, as though he once fell and never quite stopped falling.",
-                "At the feather market, people trade secrets by tying them to birds and hoping they return kinder.",
-                "A flock of knife-winged falcons circles the highest tower without casting shadows.",
-            ],
-        ),
-        (
-            6,
-            "The Mirror Snow",
-            "Frost Kingdom",
-            "Ilyra the Ice Guardian",
-            "Ice",
-            "endurance",
-            "Queen Rimeheart",
-            [
-                "The Frost Kingdom does not welcome visitors; it tests whether they can listen to silence without filling it.",
-                "Snowfields reflect possible futures, including one where you never left home.",
-                "You share heat with an old soldier who once hunted Guardians and now plants blue flags for the lost.",
-                "Sava the mitten-seller charges one story per bowl of soup and rejects any story with a lazy ending.",
-                "Kael weeps frost when no one is meant to see.",
-                "A frozen river shows faces under the ice, not trapped, but waiting for descendants to remember their names.",
-                "Mira records names until her ink freezes. Then she scratches them into the page with a needle.",
-                "Queen Rimeheart's palace appears inside a snowflake that grows larger the closer you walk toward it.",
-            ],
-        ),
-        (
-            7,
-            "The City of Copper Rain",
-            "Storm Kingdom",
-            "Astrax the Lightning Guardian",
-            "Lightning",
-            "agility",
-            "The Clockwork Tyrant",
-            [
-                "Lightning rails scream between copper towers and libraries that argue with their readers.",
-                "Children here learn arithmetic by counting seconds between flash and thunder.",
-                "You solve a conductor's puzzle by matching thunder intervals to old nursery rhymes.",
-                "Professor Venn joins you for three streets, gets lost twice, and accidentally proves a forbidden theorem.",
-                "Mira finds a wanted poster showing Kael's face from three hundred years ago.",
-                "Kael claims it is a common face. Nobody believes him, including a nearby statue that rolls its eyes.",
-                "The city council has been replaced by brass automata that vote unanimously for curfews, taxes, and silence.",
-                "A dead lightning bolt is chained beneath the palace, and it whispers whenever someone says freedom.",
-            ],
-        ),
-        (
-            8,
-            "The Forest That Speaks Last",
-            "Green Kingdom",
-            "Eloane the Nature Guardian",
-            "Nature",
-            "vitality",
-            "The Blight Stag",
-            [
-                "The Green Kingdom begins with a sign that reads: wipe your boots, apologize to the moss, and do not flatter the foxes.",
-                "Trees here remember names better than people do, and every leaf turns to listen.",
-                "You negotiate between mushroom monks, fox diplomats, and a village swallowed by protective vines.",
-                "A grove shows you Ashvale regrowing around a black throne.",
-                "Kael touches one tree and the bark recoils as though burned by winter.",
-                "Mira befriends a tiny sprout growing from an old helmet and names it General Salad.",
-                "The forest's sickness spreads in beautiful patterns, black flowers blooming exactly where old lies were buried.",
-                "At dusk, antlers appear between the trees, carrying candles that burn with green flame.",
-            ],
-        ),
-        (
-            9,
-            "The Feast of Small Victories",
-            "Ashvale",
-            "No Guardian",
-            "Home",
-            "morale",
-            "The Eclipse Butcher",
-            [
-                "You return home to bury the dead and find survivors rebuilding the bakery first.",
-                "Pippin's clay bird sits in a window beside Mira's map and a bowl of pears.",
-                "The village elder gives you three tasks: mend a fence, eat something warm, and stop apologizing for surviving.",
-                "For one night, nobody asks you to save the world; they only ask you to dance.",
-                "Kael dances like someone remembering court lessons from a kingdom no history book admits existed.",
-                "Mira laughs so hard she has to sit down, then cries because laughing did not feel impossible anymore.",
-                "At midnight, the memorial stones turn toward the road as if watching something approach.",
-                "The Eclipse Butcher comes home wearing the voices of the dead.",
-            ],
-        ),
+        (2, "Earth Trial", "Stone Kingdom", "Brunda the Earth Guardian", "Earth", "endurance", "Lord Malgrit of the Hollow Mine", [
+            "You enter the Stone Kingdom with the compass pulling toward the mountains.",
+            "Before the climb, you check food, water, energy, and morale because the mine road is long.",
+            "Miners explain that supports are breaking and families are trapped below.",
+            "You help lift beams into place, which fits the Earth trial and tests endurance.",
+            "Mira marks safe tunnels while Kael quietly names paths that should have been forgotten.",
+            "At the root-crowned gate, the compass points down to Brunda and the mine's hidden wound.",
+        ]),
+        (3, "Water Trial", "Tide Kingdom", "Nerys the Water Guardian", "Water", "vitality", "The Drowned Admiral", [
+            "Rain begins before the Tide Kingdom walls, and the road turns to shining mud.",
+            "You refill water early because this chapter uses floods, canals, and long wet travel.",
+            "Ferrymen ask for help moving families out of houses filling with river water.",
+            "You choose careful routes over fast ones, keeping morale steady while people are afraid.",
+            "Mira learns tide knots from a captain and uses them to mark safe crossings.",
+            "When black stairs appear under the harbor, the compass points down to Nerys.",
+        ]),
+        (4, "Fire Trial", "Ember Kingdom", "Solun the Fire Guardian", "Fire", "strength", "The Brass Prophet", [
+            "The Ember Kingdom is bright, loud, and hot enough to make thirst drop quickly.",
+            "You ration water before entering Caldera because the desert road punishes carelessness.",
+            "Refugees hide in shade while a fire cult promises safety only to the strong.",
+            "You carry water jars, move hot metal doors, and use strength to protect instead of threaten.",
+            "Kael names an old burned city, and the compass needle shakes in his hand.",
+            "Smoke from the palace furnaces forms an arrow toward Solun's shrine.",
+        ]),
+        (5, "Wind Trial", "Sky Kingdom", "Vaelor the Wind Guardian", "Wind", "agility", "The Silent Falconer", [
+            "The Sky Kingdom hangs above the world on bridges, chains, and careful steps.",
+            "You tie down loose gear because dropped supplies are gone forever in this region.",
+            "Every bridge tests agility, and every lie makes one narrow path tremble.",
+            "Tamsin offers a shortcut, but Mira makes you inspect the ropes before trusting it.",
+            "Knife-winged falcons circle the highest tower and force you to move between gusts.",
+            "The compass points through open air to Vaelor, who is trapped above the clouds.",
+        ]),
+        (6, "Ice Trial", "Frost Kingdom", "Ilyra the Ice Guardian", "Ice", "endurance", "Queen Rimeheart", [
+            "The Frost Kingdom is quiet, white, and dangerous because cold drains energy slowly.",
+            "You plan rests before your stats fall too far, and you share food with a lost patrol.",
+            "Frozen rivers show old faces under the ice, so Mira writes their names carefully.",
+            "Kael hides his grief badly here; even his breath looks heavy.",
+            "Queen Rimeheart's palace appears inside a growing snowflake on the road ahead.",
+            "The compass leads you to Ilyra, whose trial is about memory without surrender.",
+        ]),
+        (7, "Lightning Trial", "Storm Kingdom", "Astrax the Lightning Guardian", "Lightning", "agility", "The Clockwork Tyrant", [
+            "Lightning rails carry you into a city of copper towers and strict curfews.",
+            "The Storm Kingdom rewards speed, but a wrong step can trigger guards or machines.",
+            "Professor Venn explains a thunder pattern that opens the next gate.",
+            "You count flashes, time your movement, and keep enough energy for a sudden fight.",
+            "Mira finds a wanted poster with Kael's face and a date from centuries ago.",
+            "The compass points to the palace machine where Astrax's power is being trapped.",
+        ]),
+        (8, "Nature Trial", "Green Kingdom", "Eloane the Nature Guardian", "Nature", "vitality", "The Blight Stag", [
+            "The Green Kingdom looks peaceful until you see black flowers spreading under the trees.",
+            "You check berries, refill water from clear streams, and avoid plants that smell sweet and wrong.",
+            "Mushroom monks and fox guides argue, but both agree the forest is sick from an old lie.",
+            "You follow healthy roots because they lead around poison and toward the source.",
+            "Mira leaves a ribbon for Ashvale, and a small green shoot grows beside it.",
+            "The compass points to Eloane at the forest heart, where the Blight Stag waits nearby.",
+        ]),
+        (9, "Home Trial", "Ashvale", "No Guardian", "Home", "morale", "The Eclipse Butcher", [
+            "You return to Ashvale expecting rest, but home is still wounded from the first attack.",
+            "The village asks for clear tasks: mend a fence, carry water, eat warm food, and sleep if you can.",
+            "Helping neighbors raises morale because the system should match the story here.",
+            "Pippin's clay bird sits in the bakery window as a small sign that people are still building.",
+            "Kael is too quiet at the memorial stones, and Mira notices before you do.",
+            "At midnight, the Eclipse Butcher comes home and turns comfort into a battle.",
+        ]),
     ]
     for chapter in chapters:
         guardian_chapter(*chapter)
     interlude_truth()
     more = [
-        (
-            11,
-            "The Sunken Archive",
-            "Tide Kingdom",
-            "Nerys's Echo",
-            "Memory",
-            "vitality",
-            "Archivist of Teeth",
-            [
-                "You dive through a drowned palace where books swim away from liars.",
-                "Captain Sella ties a rope around your waist and says if history bites, bite back.",
-                "The archive reveals Chaos once offered immortality to every kingdom and was refused by children first.",
-                "Mira records everything, even the parts that make her hands shake.",
-                "Kael reads a page about his plague-kingdom and folds it so carefully you hear the paper hurt.",
-                "A school of silver fish arranges itself into the face of Nerys and points toward a sealed vault.",
-            ],
-        ),
-        (
-            12,
-            "The Parliament of Ash",
-            "Ember Kingdom",
-            "Solun's Ember",
-            "Courage",
-            "strength",
-            "The Cinder Regent",
-            [
-                "Fire nobles duel with poetry while refugees sleep beneath gold balconies.",
-                "You expose a regent selling eclipse glass to monsters.",
-                "A baker's coalition smuggles families out inside flour carts and asks you to distract the palace guard.",
-                "Kael saves a child from flame and looks almost human again.",
-                "Solun's ember spits sparks whenever anyone says necessary sacrifice too comfortably.",
-                "The parliament chamber is a furnace designed to make honest witnesses sweat and liars glow.",
-            ],
-        ),
-        (
-            13,
-            "Hollow Mountain",
-            "Stone Kingdom",
-            "Brunda's Root",
-            "Stone",
-            "endurance",
-            "The Mountain That Hates",
-            [
-                "A mountain opens like a mouth and demands the name of whoever broke the first promise.",
-                "Oren the retired soldier returns with a shield, a limp, and an argument against dying dramatically.",
-                "You answer by placing Pippin's clay bird on its tongue.",
-                "The mountain lets you pass, embarrassed by tenderness.",
-                "Deep below, the first Guardian oath is carved into bedrock: hold, but do not clutch; guard, but do not own.",
-                "Kael reads the oath and turns away before anyone can see whether he understands it.",
-            ],
-        ),
-        (
-            14,
-            "The Choir of No Tomorrow",
-            "Frost Kingdom",
-            "Ilyra's Tear",
-            "Patience",
-            "vitality",
-            "The Future Eater",
-            [
-                "A choir sings futures out of existence to spare people pain.",
-                "Sava returns with soup so spicy it makes three prophecies reconsider themselves.",
-                "You must choose one painful memory to keep forever.",
-                "The kept memory becomes armor.",
-                "Mira chooses the bridge where you met because she says fear should remember it failed.",
-                "Kael refuses to choose. The choir chooses for him, and every note sounds like a plague bell.",
-            ],
-        ),
-        (
-            15,
-            "Storm at the Edge of Maps",
-            "Storm Kingdom",
-            "Astrax's Spark",
-            "Storm",
-            "agility",
-            "The Thunderless King",
-            [
-                "The last map edge flaps like torn cloth above an endless sea of clouds.",
-                "Tamsin returns with a stolen airship and absolutely no apology.",
-                "Together you steer through living lightning toward the place Kael fears most.",
-                "Professor Venn straps himself to the mast and shouts footnotes into the storm.",
-                "Astrax's spark teaches the engine to be brave, which mostly sounds like illegal acceleration.",
-                "The Thunderless King's fortress waits in a quiet so complete your heartbeat feels rebellious.",
-            ],
-        ),
-        (
-            16,
-            "Garden of the First Lie",
-            "Green Kingdom",
-            "Eloane's Seed",
-            "Bloom",
-            "vitality",
-            "The First Serpent",
-            [
-                "In a garden older than language, flowers bloom into scenes Kael edited out of history.",
-                "He was not the first villain of Chaos. He was its first survivor.",
-                "You can hate him less without trusting him more.",
-                "The fox diplomat returns and admits this is the most inconvenient moral nuance it has ever witnessed.",
-                "Eloane's seed cracks open and grows a door made from intertwined roots.",
-                "Behind the door, the First Serpent waits beside the first apology ever refused.",
-            ],
-        ),
-        (
-            17,
-            "Before the Last Dawn",
-            "Light Kingdom",
-            "The Dawn Oracle",
-            "Dawn",
-            "strength",
-            "The Candleless Monk",
-            [
-                "Pilgrims climb a road paved with broken halos and leave letters for tomorrow.",
-                "Mira asks what you will do if saving the world requires forgiving the person who ruined yours.",
-                "The compass stops pointing outward. It points at your heart.",
-                "Luma plays one last road song, and every recurring friend you helped sends a verse along the wind.",
-                "Pippin's clay bird, somehow still whole, grows warm in your pack.",
-                "At the gate of dawn, Kael finally says the name of his lost kingdom: Eronmere.",
-            ],
-        ),
+        (11, "Memory Trial", "Tide Kingdom", "Nerys's Echo", "Memory", "vitality", "Archivist of Teeth", [
+            "You return to the Tide Kingdom because the drowned archive holds missing history.",
+            "The dive is slow, so you prepare water routes, food, and enough energy for the return.",
+            "Books float through flooded halls and move away from anyone who lies.",
+            "Mira copies records showing why Chaos was locked away instead of destroyed.",
+            "Kael reads one page about his lost kingdom and folds it with shaking hands.",
+            "The Archivist of Teeth attacks because it survives by destroying witnesses.",
+        ]),
+        (12, "Courage Trial", "Ember Kingdom", "Solun's Ember", "Courage", "strength", "The Cinder Regent", [
+            "Back in the Ember Kingdom, refugees hide below balconies where nobles argue about honor.",
+            "You use strength to move crates, block guards, and open a safe path through the heat.",
+            "A baker's group smuggles families out in flour carts while you draw attention away.",
+            "Solun's Ember sparks whenever someone calls cruelty a necessary sacrifice.",
+            "Kael saves a child from flame, which proves he can still choose better even if he has lied.",
+            "The Cinder Regent waits near the furnaces, turning fear into fuel.",
+        ]),
+        (13, "Stone Trial", "Stone Kingdom", "Brunda's Root", "Stone", "endurance", "The Mountain That Hates", [
+            "The Stone Kingdom calls again when a mountain wakes and closes the road like a fist.",
+            "You conserve energy because this chapter is a long climb before the fight begins.",
+            "Oren, an old soldier, helps you carry shields, ropes, and food to trapped workers.",
+            "Instead of striking the mountain, you listen and answer with the clay bird from Ashvale.",
+            "Deep inside, Brunda's Root shows the first oath: guard people, but do not own them.",
+            "The mountain's anger becomes a boss because old greed left wounds in the stone.",
+        ]),
+        (14, "Patience Trial", "Frost Kingdom", "Ilyra's Tear", "Patience", "vitality", "The Future Eater", [
+            "In the Frost Kingdom, a choir sings futures out of existence to spare people pain.",
+            "The offer sounds kind, but it would remove choice, growth, and every hard tomorrow.",
+            "You rest when needed, eat before hunger gets too low, and keep morale from collapsing.",
+            "Mira chooses to remember the bridge where fear failed to stop her.",
+            "Ilyra's Tear shows that patience means staying present with pain instead of erasing it.",
+            "The Future Eater attacks when you choose a difficult future over an empty one.",
+        ]),
+        (15, "Storm Trial", "Storm Kingdom", "Astrax's Spark", "Storm", "agility", "The Thunderless King", [
+            "At the edge of the maps, Tamsin arrives with a stolen airship and no apology.",
+            "The storm route is fast, so you watch agility, energy, and supplies between lightning strikes.",
+            "Professor Venn ties himself to the mast and shouts useful facts over the wind.",
+            "Astrax's Spark teaches the engine to hold steady when fear says to turn back.",
+            "Kael admits the place ahead is close to where he first searched for Chaos.",
+            "The Thunderless King's fortress waits in silence, stealing the sound of rebellion.",
+        ]),
+        (16, "Bloom Trial", "Green Kingdom", "Eloane's Seed", "Bloom", "vitality", "The First Serpent", [
+            "The garden at the forest center shows scenes Kael removed from every story he told.",
+            "You learn he was hurt before he became dangerous, but pain does not excuse betrayal.",
+            "Eloane's Seed grows when you choose truth without trying to make yourself look perfect.",
+            "The garden gives food and clean water, but only after you stop pretending the rot is gone.",
+            "Mira says forgiveness is not the same as trust, and the story lets that be true.",
+            "A root door opens to the First Serpent, which twists kind wishes into cruel choices.",
+        ]),
+        (17, "Dawn Trial", "Light Kingdom", "The Dawn Oracle", "Dawn", "strength", "The Candleless Monk", [
+            "The Light Kingdom road climbs toward dawn, and every step feels like a final question.",
+            "You check your stats because the last chapters will not be gentle with weak supplies.",
+            "Friends you helped send small gifts, songs, or warnings along the road.",
+            "The compass stops pointing to places and points to your heart instead.",
+            "Kael finally says the name of his lost home: Eronmere.",
+            "At the dawn gate, the Candleless Monk tries to end hope before Seraphine can speak.",
+        ]),
     ]
     for chapter in more:
         guardian_chapter(*chapter)

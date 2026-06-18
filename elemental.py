@@ -24,7 +24,11 @@ player = {
     "resolve": 0,
     "chaos_taint": 0,
     "truths": 0,
+    "memory": {},
 }
+
+PYTHON_2 = "expanded_kingdom_story_memory_and_party_battles"
+KINGDOM_GAMEPLAY_TARGET_HOURS = 2
 
 day = 1
 hour = 8
@@ -43,7 +47,301 @@ waters = {
     "Starlit Rain": {"thirst": 60, "morale": 15},
 }
 
-events = ["nothing", "enemy", "food", "water", "traveler", "omen", "memory"]
+events = ["nothing", "enemy", "food", "water", "traveler", "omen", "memory", "kingdom_encounter"]
+
+
+kingdom_profiles = {
+    "Stone Kingdom": {
+        "identity": "low tunnels, debt ledgers, ancestor stones, and miners who measure trust by shared weight",
+        "people": ["Oren Deepdelver", "Sella Pickhand", "Apprentice Tovin", "Ledger-Keeper Marn"],
+        "encounters": [
+            ("cave_in", "A side gallery collapses and miners pound on stone from the other side.", "endurance"),
+            ("debt_guard", "A mine guard demands tolls from families carrying rescue tools.", "strength"),
+            ("singing_ore", "Blue ore hums a warning that only stops when everyone stands still.", "resolve"),
+            ("ancestor_marker", "An ancestor marker has been stolen and the miners refuse to dig until it is found.", "truths"),
+        ],
+        "events": ["brace a cracking beam", "settle a strike without blood", "map a worm tunnel", "escort lamp-bearers"],
+    },
+    "Tide Kingdom": {
+        "identity": "floating markets, tide bells, canal law, and families who move homes by boat",
+        "people": ["Captain Ysra", "Bell-Diver Noll", "Net-Mender Sivi", "Harbor Child Renn"],
+        "encounters": [
+            ("tide_race", "The tide turns early and boats slam against the palace steps.", "agility"),
+            ("quarantine_boat", "A quarantine boat begs for medicine while officials argue from dry balconies.", "mercy"),
+            ("pearl_thief", "A pearl thief hides among evacuees and dares you to expose him publicly.", "truths"),
+            ("reef_trial", "A living reef opens only for someone who returns what the sea lent.", "vitality"),
+        ],
+        "events": ["repair a canal gate", "dive for a bell chain", "negotiate ferry passage", "follow lantern fish"],
+    },
+    "Ember Kingdom": {
+        "identity": "glass deserts, furnace courts, spice smoke, and citizens who treat water like gold",
+        "people": ["Jara Ashcup", "Glasswright Pel", "Guard-Captain Ro", "Little Mica"],
+        "encounters": [
+            ("water_trial", "A public cistern is locked while children wait with cracked cups.", "mercy"),
+            ("glass_storm", "A glass storm sweeps the street and every shelter has a price.", "endurance"),
+            ("forge_duel", "A masked duelist challenges anyone carrying Guardian fire.", "strength"),
+            ("ember_choir", "The ember choir sings courage into refugees but fear into soldiers.", "resolve"),
+        ],
+        "events": ["carry water under arrows", "cool a runaway forge", "hide refugees in kiln tunnels", "cross a salt-flat mirage"],
+    },
+    "Sky Kingdom": {
+        "identity": "chain bridges, cloud farms, oath flags, and wind laws that punish careless lies",
+        "people": ["Tamsin Ropewise", "Cloudherd Epp", "Flag-Judge Nara", "Falconer Soot"],
+        "encounters": [
+            ("bridge_sway", "A bridge begins to sway while merchants freeze halfway across.", "agility"),
+            ("false_shortcut", "A smiling guide sells a shortcut that cannot possibly hold your weight.", "truths"),
+            ("cloud_stampede", "Cloud sheep stampede through a sky orchard and tear loose the anchors.", "agility"),
+            ("flag_oath", "Oath flags demand one honest confession before the path will steady.", "mercy"),
+        ],
+        "events": ["balance along a singing chain", "catch falling supplies", "race a storm elevator", "choose which bridge to cut"],
+    },
+    "Frost Kingdom": {
+        "identity": "silent halls, memory mirrors, snow caravans, and laws written to outlast grief",
+        "people": ["Archivist Linn", "Sledge-Mother Va", "Mirror Page Osk", "Hunter Brek"],
+        "encounters": [
+            ("whiteout", "A whiteout erases the road and voices answer from the wrong direction.", "endurance"),
+            ("memory_mirror", "A mirror shows your worst choice and waits for you to name it.", "truths"),
+            ("lost_caravan", "A caravan is alive but ready to leave its slowest member behind.", "mercy"),
+            ("ice_debt", "A frozen contract binds a village to a queen who no longer protects it.", "resolve"),
+        ],
+        "events": ["share heat in a snow trench", "mark names on ice", "hunt blue-flame wolves", "carry a survivor through drifts"],
+    },
+    "Storm Kingdom": {
+        "identity": "copper towers, curfew sirens, thunder codes, and rebels speaking in timed sparks",
+        "people": ["Professor Venn", "Relay Runner Kip", "Switchmaster Ona", "Static Saint Brill"],
+        "encounters": [
+            ("curfew_net", "A curfew net drops from the towers and sparks across the street.", "agility"),
+            ("coded_rebel", "A rebel gives a thunder code but cannot know if you are watched.", "truths"),
+            ("runaway_engine", "A runaway engine pulls a worker toward spinning gears.", "strength"),
+            ("law_machine", "A law machine prints a cruel sentence and asks you to stamp it legal.", "resolve"),
+        ],
+        "events": ["time a lightning rail", "jam a patrol automaton", "decode rebel thunder", "steal batteries for a clinic"],
+    },
+    "Green Kingdom": {
+        "identity": "root roads, fox bargains, mushroom courts, and healing that begins by naming rot",
+        "people": ["Foxguide Luma", "Mushroom Abbot Pell", "Root-Singer Ana", "Bee Knight Saff"],
+        "encounters": [
+            ("poison_bloom", "Poison blooms around a spring that animals still try to drink from.", "vitality"),
+            ("fox_bargain", "A fox offers a perfect answer in exchange for an ugly truth.", "truths"),
+            ("moss_trial", "Moss grows over an old wound and asks whether covered means healed.", "mercy"),
+            ("stag_track", "Blight tracks split into many paths, and only healthy roots know the real one.", "agility"),
+        ],
+        "events": ["cleanse a spring", "settle a beehive dispute", "follow root-signs", "burn black flowers carefully"],
+    },
+    "Light Kingdom": {
+        "identity": "dawn roads, confession shrines, mirror bells, and pilgrims who carry both hope and guilt",
+        "people": ["Dawn Oracle", "Pilgrim Sera", "Bell-Keeper Ion", "Lantern Girl Vey"],
+        "encounters": [
+            ("confession_gate", "A gate of light opens only after someone admits what they fear becoming.", "truths"),
+            ("hope_tax", "A priest demands payment for blessings that should have been free.", "resolve"),
+            ("shadow_pilgrim", "A pilgrim's shadow walks away and begins repeating their secret shame.", "mercy"),
+            ("last_lantern", "The last lantern dims whenever anyone lies about why they fight.", "truths"),
+        ],
+        "events": ["guide pilgrims at dawn", "answer a mirror bell", "defend a free shrine", "carry the last lantern"],
+    },
+    "Ashvale": {
+        "identity": "bakery smoke, well ropes, repaired fences, and neighbors who remember every kindness",
+        "people": ["Mara the Baker", "Pippin", "Old Fen", "Elder Rowan"],
+        "encounters": [
+            ("bakery_fire", "Mara's oven flares with black flame while bread for refugees burns.", "strength"),
+            ("well_shadow", "The village well reflects a sky that is not above you.", "truths"),
+            ("pippin_memory", "Pippin asks whether heroes still come home after the songs end.", "mercy"),
+            ("fen_drill", "Old Fen insists scared hands can still learn one more guard stance.", "resolve"),
+        ],
+        "events": ["mend a fence", "carry well water", "guard the bakery line", "teach children where to hide"],
+    },
+    "Chaos": {
+        "identity": "impossible roads, broken clocks, borrowed voices, and memories shuffled until choices hurt",
+        "people": ["The Road That Answers", "Nine-Handed Beggar", "Lost Echo of Eronmere", "Door Without Hinges"],
+        "encounters": [
+            ("wrong_map", "The map redraws itself into a place you regret but never visited.", "truths"),
+            ("echo_bargain", "An echo offers Kael's apology in a voice that might not be his.", "mercy"),
+            ("hunger_clock", "A clock eats an hour from everyone who refuses to choose.", "resolve"),
+            ("broken_camp", "You find your own camp already abandoned, with fresh footprints leaving backward.", "vitality"),
+        ],
+        "events": ["follow a compass that points inward", "answer a door's question", "fight a memory twice", "refuse an easy resurrection"],
+    },
+}
+
+
+kingdom_storylines = {
+    "Stone Kingdom": [
+        "The chapter opens with miners refusing to enter shafts until every missing name is spoken aloud.",
+        "Debt guards patrol the lift platforms, so rescue work becomes a fight against greed before monsters appear.",
+        "A child offers you a cracked lamp and asks you to bring back the people who taught it to glow.",
+        "The lower tunnels change layout when frightened miners lie about which supports they removed.",
+        "Oren remembers old union songs, and singing them can turn strangers into helpers for one scene.",
+        "A stone court asks whether a mountain can forgive if no one admits the wound first.",
+        "The side story can end with saved miners, exposed ledgers, or a dangerous shortcut left sealed.",
+    ],
+    "Tide Kingdom": [
+        "The chapter opens with bell towers ringing different tides for rich docks and poor docks.",
+        "Flood maps become political weapons because whoever controls evacuation routes controls survival.",
+        "A ferry family asks you to choose between cargo that feeds a district and passengers already in danger.",
+        "Underwater streets contain air pockets with witnesses who saw the Admiral betray his fleet.",
+        "Captain Ysra remembers whether you saved strangers or protected supplies first.",
+        "The drowned archive rearranges books according to what the player has lied about.",
+        "The side story can end with open canals, a public trial, or a secret mercy for the guilty.",
+    ],
+    "Ember Kingdom": [
+        "The chapter opens at a water auction where nobles bid on survival while refugees count empty cups.",
+        "Glass storms force choices about shelter, payment, and who gets left outside palace walls.",
+        "Forge workers hide rebellion messages in cooling metal, making every tool a possible clue.",
+        "The fire cult recruits scared citizens by promising that cruelty will make them safe.",
+        "Jara remembers whether you shared water when nobody was watching.",
+        "The furnace court demands a duel, a rescue, and a public answer about what strength is for.",
+        "The side story can end with cisterns opened, cult masks broken, or a forge repurposed for rebuilding.",
+    ],
+    "Sky Kingdom": [
+        "The chapter opens with a bridge festival where every oath flag tests one tiny truth.",
+        "Cloud farmers lose anchors, and saving their harvest changes which routes remain open later.",
+        "A false guide sells easy paths, but wind law punishes everyone nearby when a promise is broken.",
+        "Falcon nests can be robbed, protected, or negotiated around if the player learned local customs.",
+        "Tamsin remembers whether you trusted her rope work or inspected it first.",
+        "The highest tower turns fear of falling into illusions that move the battle lanes.",
+        "The side story can end with repaired bridges, exposed smugglers, or a rescued sky orchard.",
+    ],
+    "Frost Kingdom": [
+        "The chapter opens with a silent caravan deciding which memories are too heavy to carry.",
+        "Whiteouts create survival scenes where sound, warmth, and trust matter more than speed.",
+        "Memory mirrors replay earlier player choices and let recurring NPCs comment on them.",
+        "Old contracts freeze whole villages in place until someone challenges the queen's version of history.",
+        "Archivist Linn remembers whether you preserved names even when rewards were elsewhere.",
+        "The ice palace offers painless forgetting as a tempting but dangerous shortcut.",
+        "The side story can end with a thawed contract, a saved caravan, or painful truth kept alive.",
+    ],
+    "Storm Kingdom": [
+        "The chapter opens under curfew sirens that turn law into rhythm and fear into schedule.",
+        "Thunder codes let rebels speak, but every decoded message risks leading patrols to civilians.",
+        "Lightning rails create timing puzzles, ambushes, and quick rescues during travel.",
+        "Clockwork courts print punishments before trials, making sabotage a moral question instead of a prank.",
+        "Professor Venn remembers whether you protected his students or stole his batteries.",
+        "The palace machine changes enemy turn order unless the player disrupts its relays.",
+        "The side story can end with free thunder, broken curfew towers, or a repaired clinic grid.",
+    ],
+    "Green Kingdom": [
+        "The chapter opens in a forest that looks healed from above and rotten at the roots.",
+        "Fox bargains offer clever shortcuts that cost honesty, supplies, or future trust.",
+        "Mushroom courts argue slowly, so patience can unlock allies that violence never would.",
+        "Black flowers spread when people call sickness beautiful instead of treating it.",
+        "Foxguide Luma remembers whether you told the truth when a lie would have made you look noble.",
+        "The heart grove turns choices into living paths with different food, water, and battle risks.",
+        "The side story can end with cleansed springs, named rot, or seeds planted for later epilogues.",
+    ],
+    "Light Kingdom": [
+        "The chapter opens on a dawn road where every shrine asks for confession instead of payment.",
+        "Pilgrims carry regrets as lanterns, and helping them can change the final moral score.",
+        "Mirror bells ring when someone hides a selfish reason behind heroic words.",
+        "False priests sell hope to desperate people, forcing a choice between exposure and immediate aid.",
+        "The Dawn Oracle remembers every mercy, truth, and betrayal carried into the last chapters.",
+        "The final lantern grows brighter when companions attack for reasons beyond obedience.",
+        "The side story can end with free shrines, honest pilgrims, or a harder but cleaner path to Seraphine.",
+    ],
+    "Ashvale": [
+        "The chapter opens with home chores that matter because the world is made of ordinary lives.",
+        "Mara's bakery becomes a supply hub, memorial hall, and target for enemies trying to break morale.",
+        "Pippin's clay bird appears in scenes where courage needs to be small before it becomes grand.",
+        "Old Fen teaches defensive stances that can unlock partner tactics in later battles.",
+        "Neighbors remember whether you helped before asking for help yourself.",
+        "The village changes after each return: repaired fences, new graves, better shelters, warmer meals.",
+        "The side story can end with stronger defenses, restored hope, or a promise to come home alive.",
+    ],
+    "Chaos": [
+        "The chapter opens on roads that steal familiar scenes and return them with one cruel detail changed.",
+        "Maps, camps, and clocks become enemies unless the player chooses truth over convenience.",
+        "Echoes of Eronmere show Kael as hurt, guilty, dangerous, and still responsible for his choices.",
+        "Random encounters can repeat with different meanings because Chaos remembers the player incorrectly.",
+        "The Road That Answers remembers questions the player never asked and offers impossible bargains.",
+        "Companions can interrupt false memories, giving party choice real story weight.",
+        "The side story can end with refused resurrection, accepted grief, or extra chaos taint for easy answers.",
+    ],
+}
+
+
+def tell_kingdom_storyline(region):
+    beats = kingdom_storylines.get(region, kingdom_storylines["Chaos"])
+    say(f"Storyline depth for {region}: this arc is built to support about {KINGDOM_GAMEPLAY_TARGET_HOURS} hours of play.")
+    for beat in random.sample(beats, k=min(4, len(beats))):
+        say(beat)
+        pass_time(1)
+
+
+
+def remember_person(name, region, impression):
+    memory = player["memory"].setdefault(name, {"region": region, "meetings": 0, "impression": impression})
+    memory["meetings"] += 1
+    if memory["meetings"] == 1:
+        say(f"You meet {name} of the {region}. {impression}")
+    else:
+        say(f"{name} remembers you from before ({memory['meetings']} meetings). They adjust their greeting because of what you did: {memory['impression']}")
+        player["morale"] += 2
+    return memory
+
+
+def apply_story_reward(stat):
+    if stat in player and isinstance(player[stat], int):
+        player[stat] += 1
+    elif stat in ("mercy", "resolve", "truths"):
+        player[stat] += 1
+    player["food"] += random.choice([0, 0, 1])
+    player["water"] += random.choice([0, 0, 1])
+    clamp()
+
+
+def handle_kingdom_encounter(region):
+    profile = kingdom_profiles.get(region, kingdom_profiles["Chaos"])
+    person = random.choice(profile["people"])
+    encounter_id, setup, stat = random.choice(profile["encounters"])
+    memory = remember_person(person, region, f"They know you from the {encounter_id.replace('_', ' ')}.")
+    say(setup)
+    if memory["meetings"] > 1:
+        say(f"Because {person} remembers you, they skip old suspicion and reveal a different detail this time.")
+    choice = ask("How do you handle it?", [("1", "Help openly"), ("2", "Look for the hidden cause"), ("3", "Conserve supplies and move carefully")])
+    if choice == "1":
+        player["mercy"] += 1
+        say(f"You make the merciful choice, and the {region} changes around that kindness.")
+        if person in companion_roster and person not in player["companions"] and random.randint(1, 3) == 1:
+            player["companions"].append(person)
+            say(f"{person} can now be chosen as a battle partner.")
+    elif choice == "2":
+        player["truths"] += 1
+        say(f"You uncover a local truth that would not matter in any other kingdom: {profile['identity']}.")
+    else:
+        player["resolve"] += 1
+        pass_time(1)
+        say("You spend extra time, but fewer people are hurt because you refuse to rush.")
+    apply_story_reward(stat)
+    if random.randint(1, 3) == 1:
+        names = random.sample(region_enemies.get(region, ["Road Ghoul"]), k=1)
+        if random.randint(1, 4) == 1:
+            names.append(f"{region} Elite")
+        enemies = []
+        for name in names:
+            level = max(8, power() + random.randint(-1, 4))
+            enemies.append(make_enemy(name, level, level, level, level))
+        battle(enemies)
+
+
+def run_kingdom_sandbox(region, rounds=8):
+    profile = kingdom_profiles.get(region, kingdom_profiles["Chaos"])
+    say(f"This kingdom has its own two-hour-style adventure loop: {profile['identity']}.")
+    say("The main story stays fixed, but side events, people, rewards, and dangers are shuffled each run.")
+    tell_kingdom_storyline(region)
+    for _ in range(rounds):
+        pass_time(1)
+        if random.randint(1, 2) == 1:
+            say(f"Local event: you {random.choice(profile['events'])}.")
+            if random.randint(1, 4) == 1:
+                player["food"] += 1
+            if random.randint(1, 4) == 1:
+                player["water"] += 1
+        else:
+            handle_kingdom_encounter(region)
+        if player["hunger"] < 35 and player["food"] > 0:
+            eat()
+        if player["thirst"] < 35 and player["water"] > 0:
+            drink()
+    clamp()
 
 region_enemies = {
     "Ashvale": ["Smoke-Wolf", "Cinder Imp"],
@@ -171,48 +469,107 @@ def enemy_health(enemy):
     return round((enemy["energy"] + enemy["morale"] + enemy["thirst"] + enemy["hunger"]) / 4)
 
 
+companion_roster = {
+    "Mira": {"power": 8, "energy": 85, "skill": "Expose Weakness"},
+    "Kael, the Hooded Traveler": {"power": 9, "energy": 80, "skill": "Shadow Ward"},
+    "Tamsin Ropewise": {"power": 7, "energy": 75, "skill": "Tripline"},
+    "Professor Venn": {"power": 6, "energy": 70, "skill": "Static Charge"},
+    "Oren Deepdelver": {"power": 8, "energy": 90, "skill": "Shield Brace"},
+}
+
+
+def choose_partner():
+    available = [name for name in player["companions"] if name in companion_roster]
+    if not available:
+        return None
+    choices = [(str(index + 1), name) for index, name in enumerate(available)]
+    choices.append(("0", "Fight without a partner"))
+    choice = ask("Choose one battle partner for this fight.", choices)
+    if choice == "0":
+        return None
+    name = available[int(choice) - 1]
+    partner = dict(companion_roster[name])
+    partner["name"] = name
+    say(f"{name} joins the front line with {partner['skill']}.")
+    return partner
+
+
+def living_enemies(enemies):
+    return [enemy for enemy in enemies if enemy_health(enemy) > 0]
+
+
 def battle(enemy):
-    say(f"\n{enemy['name']} enters the battle.")
-    while health() > 0 and enemy_health(enemy) > 0:
+    enemies = enemy if isinstance(enemy, list) else [enemy]
+    partner = choose_partner()
+    enemy_names = ", ".join(enemy["name"] for enemy in enemies)
+    say(f"\nBattle begins against {enemy_names}.")
+    guarded = False
+    while health() > 0 and living_enemies(enemies):
         print("\n--------------------")
         print(f"You: {health()} HP")
-        print(f"{enemy['name']}: {enemy_health(enemy)} HP")
+        if partner:
+            print(f"{partner['name']}: {partner['energy']} energy | Skill: {partner['skill']}")
+        for index, foe in enumerate(enemies, start=1):
+            print(f"{index}. {foe['name']}: {enemy_health(foe)} HP")
         print("1. Attack")
         print("2. Guard")
         print("3. Eat")
         print("4. Drink")
         print("5. Run")
+        print("6. Rally partner")
         choice = input("> ").strip()
+        guarded = choice == "2"
+        target = random.choice(living_enemies(enemies))
         if choice == "1":
             damage = random.randint(max(1, power() - 2), power() + 4)
-            enemy["energy"] -= damage
-            print(f"You dealt {damage} damage.")
+            target["energy"] -= damage
+            print(f"You dealt {damage} damage to {target['name']}.")
         elif choice == "2":
-            player["morale"] += 3
-            print("You steady your breathing and raise your guard.")
+            player["morale"] += 4
+            print("You steady your breathing and raise your guard for the whole party.")
         elif choice == "3":
             eat()
         elif choice == "4":
             drink()
         elif choice == "5":
-            if random.randint(1, 20) <= player["agility"]:
-                print("You escaped!")
+            escape_score = player["agility"] + (partner["power"] // 2 if partner else 0)
+            if random.randint(1, 24) <= escape_score:
+                print("Your party escaped!")
                 return False
             print("Couldn't escape!")
+        elif choice == "6" and partner:
+            partner["energy"] = min(100, partner["energy"] + 12)
+            player["morale"] += 3
+            print(f"You rally {partner['name']}; they prepare {partner['skill']}.")
         else:
             print("You hesitate.")
         clamp()
-        if enemy_health(enemy) <= 0:
-            print("Enemy defeated!")
-            player["morale"] += 6
+        if partner and partner["energy"] > 0 and living_enemies(enemies):
+            target = random.choice(living_enemies(enemies))
+            damage = random.randint(max(1, partner["power"] - 2), partner["power"] + 4)
+            if partner["skill"] in ("Expose Weakness", "Static Charge"):
+                damage += 2
+            target["energy"] -= damage
+            partner["energy"] = max(0, partner["energy"] - random.randint(3, 7))
+            print(f"{partner['name']} uses {partner['skill']} and deals {damage} damage to {target['name']}.")
+        if not living_enemies(enemies):
+            print("Enemies defeated!")
+            player["morale"] += 8
             clamp()
             return True
-        damage = random.randint(max(1, enemy_power(enemy) - 3), enemy_power(enemy) + 3)
-        if choice == "2":
-            damage = max(1, damage // 2)
-        player["energy"] -= damage
-        clamp()
-        print(f"{enemy['name']} dealt {damage} damage.")
+        for foe in living_enemies(enemies):
+            target_player = not partner or random.randint(1, 2) == 1 or partner["energy"] <= 0
+            damage = random.randint(max(1, enemy_power(foe) - 3), enemy_power(foe) + 3)
+            if guarded:
+                damage = max(1, damage // 2)
+            if target_player:
+                player["energy"] -= damage
+                clamp()
+                print(f"{foe['name']} attacks you for {damage} damage.")
+            else:
+                partner["energy"] = max(0, partner["energy"] - damage)
+                print(f"{foe['name']} attacks {partner['name']} for {damage} damage.")
+        # Every living participant has now acted once this turn: you, partner, then each enemy.
     print("You were defeated, but the compass burns cold and drags you back from the dark.")
     player["energy"] = 25
     player["morale"] = max(player["morale"], 20)
@@ -236,6 +593,10 @@ def stats():
     print(f"Water Supply: {player['water']}")
     print(f"Inventory: {', '.join(player['inventory'])}")
     print(f"Companions: {', '.join(player['companions']) if player['companions'] else 'None'}")
+    if player["memory"]:
+        print("People who remember you:")
+        for name, memory in sorted(player["memory"].items()):
+            print(f"- {name} ({memory['region']}): {memory['meetings']} meeting(s)")
 
 
 def menu():
@@ -312,7 +673,13 @@ def handle_event(region):
         say("The compass points at your own shadow. For a heartbeat, it has nine hands.")
     elif event == "memory":
         player["morale"] += 3
-        say("A small kindness from home returns to you like a candle in rain.")
+        if player["memory"]:
+            name = random.choice(list(player["memory"]))
+            say(f"You remember {name}, and the road feels less empty because history now travels with you.")
+        else:
+            say("A small kindness from home returns to you like a candle in rain.")
+    elif event == "kingdom_encounter":
+        handle_kingdom_encounter(region)
     clamp()
 
 
@@ -658,6 +1025,7 @@ def guardian_chapter(number, title, region, guardian, mark, stat, boss, scenes):
         if random.randint(1, 6) == 1:
             handle_event(region)
     optional_discovery(region)
+    run_kingdom_sandbox(region, rounds=random.randint(6, 9))
     companion_campfire(region)
     travel(region, random.randint(5, 8), danger=2)
     guardian_conversation(region, guardian)
